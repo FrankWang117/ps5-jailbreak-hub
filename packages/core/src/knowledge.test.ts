@@ -90,3 +90,25 @@ it('validates optional diagrams without requiring them on existing articles', ()
       .success,
   ).toBe(false);
 });
+
+it('requires original URLs for project and community sources and preserves revision metadata', () => {
+  const data = fixture();
+  for (const kind of ['project', 'community']) {
+    const source = {
+      ...data.articles[0].sources[0],
+      kind,
+      revision: '测试快照',
+    };
+    const withSource = (url: string | null) => ({
+      articles: [{ ...data.articles[0], sources: [{ ...source, url }] }],
+    });
+    const valid = knowledgeBaseSchema.parse(
+      withSource('https://example.org/research'),
+    );
+    expect(valid.articles[0].sources[0].revision).toBe('测试快照');
+    expect(knowledgeBaseSchema.safeParse(withSource(null)).success).toBe(false);
+    expect(
+      knowledgeBaseSchema.safeParse(withSource('javascript:alert(1)')).success,
+    ).toBe(false);
+  }
+});

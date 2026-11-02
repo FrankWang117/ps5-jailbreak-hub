@@ -161,7 +161,208 @@
         }
       ],
       "relatedSlugs": [
+        "firmware-1240-routes",
         "model-and-firmware",
+        "reading-evidence",
+        "risks-and-misconceptions"
+      ]
+    },
+    {
+      "slug": "firmware-1240-routes",
+      "title": "假设是 12.40：先看适用路线与准备条件",
+      "summary": "核对浏览器入口、Y2JB 备份路线与后续工具的不同条件。仅为公开资料研究，CFI-2200B01 实际版本与游戏运行结果仍未知。",
+      "updatedAt": "2026-11-02",
+      "sections": [
+        {
+          "id": "research-boundary",
+          "title": "先看结论：有公开路线线索，尚不能承诺本机可用",
+          "paragraphs": [
+            "如果你的系统假设为 12.40，可以继续研究浏览器入口和 Y2JB 配合 P2JB 的路线。这里的“路线”是前置条件说明，不是操作顺序或已验证推荐；本页没有执行按钮，也不要求现在操作主机。",
+            "12.40 仍是假设，不代表 CFI-2200B01 的出厂或实际系统版本。本文核验的是项目文档及发布说明；没有完成本机、同型号同版本的完整复现，也没有游戏离线运行实测。正式查询继续显示未知。"
+          ]
+        },
+        {
+          "id": "capability-layers",
+          "title": "从入口到游戏，分四层看",
+          "paragraphs": [
+            "第一层是浏览器或应用入口；第二层是取得后续工具所需的权限和加载环境；第三层是匹配版本的运行与挂载组件；第四层才是具体游戏及其版本的实际运行。前一层成功，不能替后一层作保证。",
+            "因此，“能打开页面”“显示加载成功”“看到游戏图标”和“离线进入游戏并稳定游玩”应分别记录。PS4 与 PS5 游戏也不能混作一类。"
+          ],
+          "diagram": {
+            "label": "能力层级示意",
+            "steps": [
+              "浏览器 / 应用入口",
+              "权限与加载环境",
+              "匹配的运行及挂载组件",
+              "具体游戏离线运行验证"
+            ],
+            "caption": "本站整理的能力关系图，非执行步骤；每层都需要单独核对条件和结果。"
+          }
+        },
+        {
+          "id": "browser-route",
+          "title": "路线一 · 浏览器入口：优先核查，先解决如何进入",
+          "paragraphs": [
+            "Relapse 的 README 声明固件范围为 7.00–13.60，并描述浏览器与内核两个阶段。它提醒可能要多次尝试，且主机可能卡住或崩溃。这里只转述项目范围，没有据此给 CFI-2200B01＋12.40 建立支持结论。",
+            "浏览器入口可以作为优先研究方向，因为它与恢复 Y2JB 备份是不同入口。还需核查：该型号怎样实际进入浏览器页面、首次设置是否受账号或网络限制、所用加载环境和后续组件是否匹配，以及本地托管条件。这些缺口尚未闭合，不能写成“一打开网页就能玩”。",
+            "与本型号相关的 issue 后续评论提到 slopkit。本站读到的 slopkit README 只有署名与图片，未给出足以采用的型号/版本复现说明；不能把评论当成完整教程，也不能把 slopkit 与 Relapse 视为同一版本或直接替换。"
+          ]
+        },
+        {
+          "id": "youtube-route",
+          "title": "路线二 · Y2JB + P2JB：先核对备份与账号条件",
+          "paragraphs": [
+            "Gezine/Y2JB 是使用 YouTube 应用的用户态入口。1.6 发布说明区分了 4.03–12.40 与 12.60 及以上的备份分支；README 对未破解设备列出 USB 与预制备份条件，并提醒恢复会清空主机数据。项目还要求其所称的 fake-activated 账号，不能把它理解成创建普通离线用户或直接使用任意 PSN 账号即可。",
+            "matem6/P2JB-Y2JB-Porting 声明 9.00–12.40，要求预先具备 Y2JB 1.3 或更新环境及同一局域网的电脑。项目说明默认过程约 50 分钟，且需按开机周期重新建立内存中的环境。这些是项目条件与耗时描述，不是本站实测。",
+            "这条路线不能只看“12.40 在列表内”。先核对备份是否适用、账号条件是否满足、恢复的数据影响与加载组件版本；在这些问题未解决前，不把恢复备份列为小白必须先做的一步。"
+          ]
+        },
+        {
+          "id": "model-specific-gap",
+          "title": "CFI-2200B01 的已知线索与缺口",
+          "paragraphs": [
+            "P2JB 项目 issue #21 的报告者自述 CFI-2200B01、版本“12.2”，恢复 Y2JB 1.5 时出现 CE-121742-7；后续评论给出了浏览器项目线索。它证明有需要核查的型号相关障碍，不能证明所有同型号均失败，也没有证明 12.40 已成功。",
+            "“12.2”保留原写法，不自动改成 12.20 或 12.40。该报告的版本、备份版本和缺少的复现条件，使它无法作为本研究假设组合的确定结论。当前需要补的是同型号、明确完整版本、明确项目版本及可复核结果，暂不需要你开机提供这些信息。"
+          ]
+        },
+        {
+          "id": "runtime-components",
+          "title": "后续组件：不要把不同发布版拼成已验证组合",
+          "paragraphs": [
+            "kstuff-lite v1.11（发布名称含 Beta）声明范围为 1.00–13.60。宽范围声明不等于所有功能可用；发布说明中 FPKG 的修复还分别提到 11.40 与 11.60，不能直接承诺 12.40 的所有格式和 PS4/PS5 游戏运行能力。",
+            "GronedWaffel 的 etaHEN 2.5B Unified r1 是非官方移植，v2.5B-unified.1 明确列出 12.40，并已包含 kstuff-lite v1.11；作者要求不要再重复加载另一份 kstuff。上游 etaHEN 2.5B 的发布说明不能替这个移植的支持范围背书；README 所述部分 13.60 功能测试也不能继承到本型号。",
+            "ShadowMountPlus 的 README 描述了面向已破解设备的内部/外部存储挂载，并依赖相应 kstuff-lite 环境。本文核对的 1.7beta2 发布说明与主分支文档是不同快照，不构成推荐组合；作者也提示存储损坏等风险。组件间的自动暂停/恢复和版本搭配需要另外验证，不能见到游戏图标就算成功。"
+          ]
+        },
+        {
+          "id": "network-and-games",
+          "title": "离线游玩目标：网络用途和游戏条件分别确认",
+          "paragraphs": [
+            "本地离线玩游戏是目标；局域网传输、访问互联网、登录 PSN 联机是不同需求。P2JB 的文档明确需要同网电脑，Y2JB 文档也讨论网络与 PSN 访问限制。离线游玩不代表准备过程完全不用网络，限制 PSN 访问也不等于切断局域网。",
+            "要判断某款游戏是否能离线运行，还需匹配 PS4/PS5 平台、游戏及补丁版本、系统需求、所用工具和格式，以及该游戏是否依赖在线服务。本文没有采纳同型号＋12.40 的具体游戏运行验证，不提供“所有单机都能玩”的列表或承诺。"
+          ]
+        },
+        {
+          "id": "preparation-and-next",
+          "title": "现在可以准备什么，后续教程还缺什么",
+          "paragraphs": [
+            "目前只需阅读并对照条件清单：实际型号与完整版本（尚未知）、候选入口的到达方式、同网电脑是否可用、是否涉及备份恢复及已有数据、所选组件的明确版本和具体目标游戏信息。缺项标为未知，不用假设补齐。此阶段不要求下载文件、恢复主机、修改网络或执行工具。",
+            "本站将优先继续核查浏览器到达方式及后续组件配合，保留 Y2JB 备份路线作条件对照。这是基于上述缺口作出的研究顺序，不是兼容性推荐。下一篇可操作教程需要引用可复核来源、写明每步预期与失败处理；没有实测时仍标为待实机验证。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "project",
+          "title": "Relapse：README",
+          "publisher": "ntfargo 与 Relapse 贡献者",
+          "url": "https://github.com/ntfargo/Relapse-Exploit/blob/main/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main README，核对日 2026-11-02",
+          "scope": "支持浏览器路线章节中的项目固件范围、阶段与稳定性提醒；未提供本假设组合的复现证据。"
+        },
+        {
+          "kind": "project",
+          "title": "Y2JB：README",
+          "publisher": "Gezine",
+          "url": "https://github.com/Gezine/Y2JB/blob/main/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main README，核对日 2026-11-02",
+          "scope": "支持 YouTube 入口、未破解设备备份条件、账号要求和恢复清空数据提醒；不是该型号可恢复的保证。"
+        },
+        {
+          "kind": "project",
+          "title": "Y2JB 1.6 发布说明",
+          "publisher": "Gezine",
+          "url": "https://github.com/Gezine/Y2JB/releases/tag/1.6",
+          "checkedAt": "2026-11-02",
+          "revision": "tag 1.6，发布于 2026-06-09",
+          "scope": "仅采用 4.03–12.40 与 12.60 及以上的备份分支区分；备份分支名称不是升级或降级目标。"
+        },
+        {
+          "kind": "project",
+          "title": "P2JB-Y2JB-Porting：README",
+          "publisher": "matem6",
+          "url": "https://github.com/matem6/P2JB-Y2JB-Porting/blob/main/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main README，核对日 2026-11-02",
+          "scope": "支持声明范围、Y2JB 1.3+、同网电脑、约 50 分钟及内存环境/开机周期限制；不作为本站实测。"
+        },
+        {
+          "kind": "community",
+          "title": "CFI-2200B01 备份恢复错误报告 #21",
+          "publisher": "YuriSizuku 及 issue 参与者",
+          "url": "https://github.com/matem6/P2JB-Y2JB-Porting/issues/21",
+          "checkedAt": "2026-11-02",
+          "revision": "2026-05-28 主帖及 2026-09-16 评论",
+          "scope": "仅作为特定用户的失败与后续路线线索；原版本写作 12.2，不换算，不外推到 12.40。"
+        },
+        {
+          "kind": "project",
+          "title": "slopkit：README",
+          "publisher": "jordyidk 与项目贡献者",
+          "url": "https://github.com/jordyidk/slopkit/blob/main/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main README，核对日 2026-11-02",
+          "scope": "所读正文为署名与图片，未采纳为型号兼容性或可操作教程依据；不访问执行入口。"
+        },
+        {
+          "kind": "project",
+          "title": "Kstuff Lite 1.11 Beta 发布说明",
+          "publisher": "EchoStretch 与贡献者",
+          "url": "https://github.com/EchoStretch/kstuff-lite/releases/tag/v1.11",
+          "checkedAt": "2026-11-02",
+          "revision": "tag v1.11，发布于 2026-09-20",
+          "scope": "仅采用声明范围和功能修复的不同版本边界；不证明所有功能或本型号游戏可用。"
+        },
+        {
+          "kind": "project",
+          "title": "etaHEN 2.5B Unified r1 发布说明（非官方移植）",
+          "publisher": "GronedWaffel",
+          "url": "https://github.com/GronedWaffel/etahen-11.00-13.60/releases/tag/v2.5B-unified.1",
+          "checkedAt": "2026-11-02",
+          "revision": "tag v2.5B-unified.1，发布于 2026-10-05",
+          "scope": "支持明确列出 12.40、捆绑 kstuff-lite v1.11 与避免重复加载的条件；不等于上游正式支持或本机验证。"
+        },
+        {
+          "kind": "project",
+          "title": "etaHEN 2.5B 上游发布说明",
+          "publisher": "etaHEN / LightningMods 与贡献者",
+          "url": "https://github.com/etaHEN/etaHEN/releases/tag/2.5B",
+          "checkedAt": "2026-11-02",
+          "revision": "tag 2.5B，发布于 2025-12-25",
+          "scope": "用于区分上游与非官方移植；此发布说明不作为非官方移植 12.40 兼容性证明。"
+        },
+        {
+          "kind": "project",
+          "title": "ShadowMountPlus：README",
+          "publisher": "drakmor 与贡献者",
+          "url": "https://github.com/drakmor/ShadowMountPlus/blob/main/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main README，核对日 2026-11-02",
+          "scope": "支持已破解环境、存储挂载、kstuff-lite 依赖及存储风险；与独立发布快照不混为同一组合。"
+        },
+        {
+          "kind": "project",
+          "title": "ShadowMountPlus 1.7beta2 发布说明",
+          "publisher": "drakmor 与贡献者",
+          "url": "https://github.com/drakmor/ShadowMountPlus/releases/tag/1.7beta2",
+          "checkedAt": "2026-11-02",
+          "revision": "tag 1.7beta2，发布于 2026-09-21",
+          "scope": "作为明确的研究版本快照，不表示最新或推荐；未据此建立具体游戏验证。"
+        },
+        {
+          "kind": "editorial",
+          "title": "本站路线研究边界与优先级",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-02",
+          "revision": "资料核对日 2026-11-02",
+          "scope": "能力分层、研究顺序和待补条件为本站分析；不是运行步骤、兼容性状态或实机报告。"
+        }
+      ],
+      "relatedSlugs": [
+        "first-boot",
         "reading-evidence",
         "risks-and-misconceptions"
       ]

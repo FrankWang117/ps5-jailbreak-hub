@@ -3,6 +3,13 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import { knowledgeBase } from '@ps5/data';
 
+const sourceLabels = {
+  official: '官方资料',
+  project: '项目一手资料',
+  community: '社区报告',
+  editorial: '本站规则',
+};
+
 export function RelatedKnowledge({ exclude }: { exclude?: string }) {
   const article = knowledgeBase.articles.find((item) => item.slug === exclude);
   const articles = article
@@ -73,7 +80,7 @@ export function KnowledgePage() {
           <div>
             <strong>先了解，再查询</strong>
             <p>
-              官方说明与本站建议分别标注来源。首次开机指南待实机验证，文章不构成任何型号的兼容性结论。
+              官方说明、项目声明、社区报告与本站建议分别标注。指南与路线说明待实机验证，文章不构成任何型号的兼容性结论。
             </p>
           </div>
         </div>
@@ -167,7 +174,7 @@ export function KnowledgePage() {
                 {article.sources.map((source) => (
                   <li key={source.title}>
                     <span className="small-tag">
-                      {source.kind === 'official' ? '官方资料' : '本站规则'}
+                      {sourceLabels[source.kind]}
                     </span>
                     <h3>
                       {source.url ? (
@@ -186,6 +193,7 @@ export function KnowledgePage() {
                       </time>
                     </p>
                     <p>{source.scope}</p>
+                    {source.revision && <p>版本 / 快照：{source.revision}</p>}
                   </li>
                 ))}
               </ul>

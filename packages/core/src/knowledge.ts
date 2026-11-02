@@ -4,7 +4,7 @@ const text = z.string().trim().min(1);
 const slug = z.string().regex(/^[a-z][a-z0-9-]*$/);
 const sourceSchema = z
   .object({
-    kind: z.enum(['official', 'editorial']),
+    kind: z.enum(['official', 'project', 'community', 'editorial']),
     title: text,
     publisher: text,
     url: z
@@ -13,13 +13,14 @@ const sourceSchema = z
       .nullable(),
     checkedAt: z.iso.date(),
     scope: text,
+    revision: text.optional(),
   })
   .superRefine((source, ctx) => {
-    if (source.kind === 'official' && source.url === null)
+    if (source.kind !== 'editorial' && source.url === null)
       ctx.addIssue({
         code: 'custom',
         path: ['url'],
-        message: '官方来源必须有原文链接',
+        message: '官方、项目及社区来源必须有原文链接',
       });
   });
 export const knowledgeBaseSchema = z
