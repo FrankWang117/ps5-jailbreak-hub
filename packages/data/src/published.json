@@ -1,0 +1,79 @@
+{
+  "models": [
+    {
+      "id": "cfi-2200b01",
+      "code": "CFI-2200B01",
+      "name": "PS5 数字版（日语专用）",
+      "region": "日本",
+      "edition": "digital",
+      "language": "日语专用",
+      "storage": "825GB SSD（标称）",
+      "releaseDate": "2025-11-21",
+      "factoryFirmware": null,
+      "description": "官方型号资料已核对；出厂固件、内部硬件修订与破解兼容性仍未知。型号资料不能用于推断设备当前系统版本。",
+      "isExample": false
+    }
+  ],
+  "modelSources": [
+    {
+      "id": "sony-store-cfi2200",
+      "modelId": "cfi-2200b01",
+      "title": "Sony Store 日本：CFI-2200B01 产品页",
+      "url": "https://pur.store.sony.jp/ps5/products/ps5/CFI-2200B01_product/",
+      "publisher": "Sony Store 日本",
+      "kind": "primary",
+      "verified": true,
+      "checkedAt": "2026-11-02T00:00:00Z",
+      "summary": "核对型号与产品名称、面向日本的销售规格、数字版、日语专用及标称存储；中文名称为摘要译名。",
+      "limitations": "只证明官方产品规格；不证明设备出厂或当前固件，也不证明破解、语言限制解除或内部硬件修订。",
+      "claims": [
+        {
+          "field": "code",
+          "value": "CFI-2200B01"
+        },
+        {
+          "field": "name",
+          "value": "PS5 数字版（日语专用）"
+        },
+        {
+          "field": "region",
+          "value": "日本"
+        },
+        {
+          "field": "edition",
+          "value": "digital"
+        },
+        {
+          "field": "language",
+          "value": "日语专用"
+        },
+        {
+          "field": "storage",
+          "value": "825GB SSD（标称）"
+        }
+      ]
+    },
+    {
+      "id": "playstation-jp-cfi2200",
+      "modelId": "cfi-2200b01",
+      "title": "PlayStation 日本：PS5 数字版（日语专用）产品详情",
+      "url": "https://www.playstation.com/ja-jp/ps5/buy-now/ps5-digital-edition-Japanese-only/",
+      "publisher": "Sony Interactive Entertainment / PlayStation 日本",
+      "kind": "primary",
+      "verified": true,
+      "checkedAt": "2026-11-02T00:00:00Z",
+      "summary": "对照商品详情表中 CFI-2200B01 一栏核对发售日期，未采用旁边 CFIJ-10032 套装或 CFI-2200B02S 的日期。",
+      "limitations": "日期仅对应此商品型号；动态产品页未来可能变化，不作为固件或破解证据。",
+      "claims": [
+        {
+          "field": "releaseDate",
+          "value": "2025-11-21"
+        }
+      ]
+    }
+  ],
+  "firmwares": [],
+  "methods": [],
+  "evidence": [],
+  "compatibility": []
+}

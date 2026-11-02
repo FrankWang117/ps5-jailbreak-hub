@@ -1,16 +1,42 @@
 import { expect, it } from 'vitest';
-import { queryCompatibility } from '@ps5/core';
+import { publishedDatasetSchema, queryCompatibility } from '@ps5/core';
 import { dataset } from './index';
-it('ships CFI-2200B01 with only clearly marked unknown sample records', () => {
-  expect(dataset.models.some((x) => x.code === 'CFI-2200B01')).toBe(true);
-  expect(dataset.compatibility.length).toBeGreaterThan(0);
+import { demoDataset } from './demo';
+it('publishes only sourced CFI-2200B01 model fields with no invented firmware or compatibility', () => {
+  expect(publishedDatasetSchema.safeParse(dataset).success).toBe(true);
+  expect(dataset.models).toHaveLength(1);
+  const model = dataset.models[0];
+  expect(model.code).toBe('CFI-2200B01');
+  expect(model.isExample).toBe(false);
+  expect(model.region).toBe('日本');
+  expect(model.edition).toBe('digital');
+  expect(model.factoryFirmware).toBeNull();
   expect(
-    dataset.compatibility.every((x) => x.isExample && x.status === 'unknown'),
+    dataset.modelSources.every((s) => s.verified && s.kind === 'primary'),
   ).toBe(true);
   expect(
-    dataset.evidence.every((x) => x.kind === 'example' && !x.verified),
+    dataset.modelSources
+      .flatMap((s) => s.claims)
+      .some((c) => c.field === 'releaseDate' && c.value === '2025-11-21'),
+  ).toBe(true);
+  expect(dataset.firmwares).toEqual([]);
+  expect(dataset.methods).toEqual([]);
+  expect(dataset.evidence).toEqual([]);
+  expect(dataset.compatibility).toEqual([]);
+});
+it('keeps demo records and fictional versions out of the default query', () => {
+  expect(demoDataset.models.some((x) => x.id === 'demo-console')).toBe(true);
+  expect(
+    demoDataset.compatibility.every(
+      (x) => x.isExample && x.status === 'unknown',
+    ),
   ).toBe(true);
   expect(
-    queryCompatibility(dataset, 'cfi-2200b01', '03.00').records[0].status,
-  ).toBe('unknown');
+    queryCompatibility(demoDataset, 'cfi-2200b01', '03.00').records,
+  ).toHaveLength(1);
+  for (const version of ['03.00', '99.99'])
+    expect(
+      queryCompatibility(dataset, 'cfi-2200b01', version).records,
+    ).toHaveLength(0);
+  expect(publishedDatasetSchema.safeParse(demoDataset).success).toBe(false);
 });

@@ -1,13 +1,11 @@
-import { useState, type FormEvent } from 'react';
+import { lazy, Suspense } from 'react';
 import { Link, NavLink, Route, Routes } from 'react-router-dom';
 import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
-  Check,
   CircleHelp,
   Cpu,
-  ExternalLink,
   Gamepad2,
   Search,
   ShieldCheck,
@@ -15,58 +13,138 @@ import {
   Layers3,
 } from 'lucide-react';
 import { dataset } from '@ps5/data';
-import {
-  queryCompatibility,
-  statusLabels,
-  type CompatibilityStatus,
-} from '@ps5/core';
 import { Button } from '@/components/ui/button';
+import { Status, Legend } from '@/components/status';
+import { ModelProfile } from '@/components/model-profile';
+import { ThemeSwitcher } from '@/components/theme-switcher';
+import { CompatibilityPage } from './CompatibilityPage';
+const DemoCompatibilityPage = lazy(() => import('./DemoCompatibilityPage'));
 
-function Status({ status }: { status: CompatibilityStatus }) {
-  return (
-    <span className={`status status-${status}`}>
-      <span />
-      {statusLabels[status]}
-    </span>
-  );
-}
-const descriptions: Record<CompatibilityStatus, string> = {
-  verified: '有可靠证据支持的明确组合',
-  partial: '有证据支持，但存在功能限制',
-  researching: '有公开研究证据，尚待完善',
-  no_public_method: '截至核验时间未有公开方案',
-  unknown: '缺少足够证据，无法判断',
-};
-function Legend() {
-  return (
-    <div className="legend">
-      {(Object.keys(statusLabels) as CompatibilityStatus[]).map((s) => (
-        <div key={s}>
-          <Status status={s} />
-          <p>{descriptions[s]}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
 function ConsoleArt() {
   return (
     <div
       className="console-art"
       role="img"
-      aria-label="抽象 PS5 主机示意图，非真实型号外观"
+      aria-label="抽象游戏手柄插画，非真实主机型号外观"
     >
-      <div className="orbit orbit-one" />
-      <div className="orbit orbit-two" />
-      <div className="console-body">
-        <div className="console-core" />
-        <div className="console-wing left" />
-        <div className="console-wing right" />
-        <div className="console-line" />
-      </div>
+      <div className="art-grid" aria-hidden="true" />
+      <div className="art-disc" aria-hidden="true" />
+      <span className="art-sticker sticker-top" aria-hidden="true">
+        LET’S PLAY <span>↗</span>
+      </span>
+      <svg
+        className="controller-art"
+        viewBox="0 0 480 320"
+        fill="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient
+            id="pad-face"
+            x1="100"
+            y1="60"
+            x2="340"
+            y2="300"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stopColor="#ffffff" />
+            <stop offset="1" stopColor="#d9d3f4" />
+          </linearGradient>
+        </defs>
+        <ellipse
+          cx="243"
+          cy="277"
+          rx="151"
+          ry="18"
+          fill="#30234b"
+          opacity=".16"
+        />
+        <path
+          d="M135 80C105 82 88 107 73 150L48 239C39 279 79 293 101 266L151 216H329L379 266C401 293 441 279 432 239L407 150C392 107 375 82 345 80L287 91H193L135 80Z"
+          fill="#30224c"
+          stroke="#30224c"
+          strokeWidth="7"
+          strokeLinejoin="round"
+          transform="translate(0 9)"
+        />
+        <path
+          d="M135 80C105 82 88 107 73 150L48 239C39 279 79 293 101 266L151 216H329L379 266C401 293 441 279 432 239L407 150C392 107 375 82 345 80L287 91H193L135 80Z"
+          fill="url(#pad-face)"
+          stroke="#30224c"
+          strokeWidth="5"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M193 91H287L298 161H182L193 91Z"
+          fill="#8872d4"
+          stroke="#30224c"
+          strokeWidth="4"
+        />
+        <path
+          d="M200 103H280"
+          stroke="#c7bded"
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+        <path
+          d="M120 116H143V137H164V160H143V181H120V160H99V137H120V116Z"
+          fill="#30224c"
+        />
+        <circle cx="188" cy="199" r="28" fill="#30224c" />
+        <circle cx="188" cy="199" r="18" stroke="#796c9d" strokeWidth="3" />
+        <circle cx="291" cy="199" r="28" fill="#30224c" />
+        <circle cx="291" cy="199" r="18" stroke="#796c9d" strokeWidth="3" />
+        <circle
+          cx="350"
+          cy="122"
+          r="13"
+          fill="#bded78"
+          stroke="#30224c"
+          strokeWidth="3"
+        />
+        <circle
+          cx="377"
+          cy="149"
+          r="13"
+          fill="#ff9c9f"
+          stroke="#30224c"
+          strokeWidth="3"
+        />
+        <circle
+          cx="323"
+          cy="149"
+          r="13"
+          fill="#8fbfff"
+          stroke="#30224c"
+          strokeWidth="3"
+        />
+        <circle
+          cx="350"
+          cy="176"
+          r="13"
+          fill="#b8a0f0"
+          stroke="#30224c"
+          strokeWidth="3"
+        />
+        <path
+          d="M343 182L357 169M343 169L357 182"
+          stroke="#30224c"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+        />
+        <circle cx="240" cy="203" r="7" fill="#bded78" />
+      </svg>
+      <span className="art-spark spark-one" aria-hidden="true">
+        ✦
+      </span>
+      <span className="art-spark spark-two" aria-hidden="true">
+        ✳
+      </span>
       <div className="art-label">
-        <span className="live-dot" /> SYSTEM / UNKNOWN{' '}
-        <small>概念示意 · 非型号实物</small>
+        <Gamepad2 size={18} aria-hidden="true" />
+        <div>
+          PLAYER’S GUIDE<small>探索主机，从了解开始</small>
+        </div>
       </div>
     </div>
   );
@@ -77,23 +155,23 @@ function Home() {
       <section className="hero">
         <div>
           <div className="eyebrow">
-            <span /> 中文 PS5 研究与知识入口
+            <span /> READY, PLAYER? · 中文 PS5 知识站
           </div>
           <h1>
-            先了解你的主机。
+            玩得尽兴。
             <br />
-            <em>再探索更多可能。</em>
+            <em>探索得明白。</em>
           </h1>
           <p className="hero-copy">
-            从主机型号到系统固件，查阅有来源的兼容性信息。
+            你的 PS5，还有多少值得了解？从型号到固件，
             <br className="desktop-break" />
-            让每一个判断，都有证据可循。
+            一起探索有来源、有依据的主机知识。
           </p>
           <div className="hero-actions">
             <Button asChild>
               <Link to="/compatibility">
                 <Search size={17} />
-                查询固件兼容性
+                查询我的主机
                 <ArrowRight size={17} />
               </Link>
             </Button>
@@ -124,18 +202,19 @@ function Home() {
       <div className="notice">
         <CircleHelp size={19} />
         <div>
-          <strong>M0 预览 · 当前仅含示例数据</strong>
+          <strong>M1 · 型号资料已有来源，兼容性仍待核验</strong>
           <p>
-            本站尚未建立真实兼容性档案。所有未验证组合均为“未知”，请勿据此升级、降级或购买主机。
+            已收录 CFI-2200B01
+            官方产品资料；暂无通过核验的兼容性记录。未验证组合保持“未知”，不据此推断破解能力。
           </p>
         </div>
-        <span className="small-tag">SAMPLE DATA</span>
+        <span className="small-tag">SOURCE FIRST</span>
       </div>
       <section className="section">
         <div className="section-heading">
           <div>
-            <div className="eyebrow">START HERE</div>
-            <h2>你的探索，从这里开始</h2>
+            <div className="eyebrow">CHOOSE YOUR QUEST</div>
+            <h2>选择你的下一站</h2>
           </div>
           <span className="muted">两种设备，同一个知识入口</span>
         </div>
@@ -174,7 +253,7 @@ function Home() {
           <div className="eyebrow">MODEL SPOTLIGHT</div>
           <h2>CFI-2200B01</h2>
           <p>本阶段重点展示型号</p>
-          <span className="model-code">型号条目 · 信息待核验</span>
+          <span className="model-code">官方产品资料 · 兼容性未知</span>
         </div>
         <div className="model-details">
           <Cpu size={24} />
@@ -188,10 +267,11 @@ function Home() {
           </Link>
         </Button>
       </section>
+      <ModelProfile data={dataset} modelId="cfi-2200b01" />
       <section className="section" id="knowledge">
         <div className="section-heading">
           <div>
-            <div className="eyebrow">THE BASICS</div>
+            <div className="eyebrow">LEVEL UP YOUR KNOWLEDGE</div>
             <h2>查询之前，先了解这三件事</h2>
           </div>
           <BookOpen className="muted" />
@@ -225,198 +305,13 @@ function Home() {
       <section className="section status-section">
         <div className="section-heading">
           <div>
-            <div className="eyebrow">READ THE SIGNAL</div>
+            <div className="eyebrow">KNOW YOUR STATUS</div>
             <h2>五种状态，清晰表达证据边界</h2>
           </div>
         </div>
         <Legend />
       </section>
     </>
-  );
-}
-function CompatibilityPage() {
-  const initialModel = new URLSearchParams(window.location.search).get('model');
-  const [model, setModel] = useState(
-    dataset.models.some((x) => x.id === initialModel)
-      ? initialModel!
-      : dataset.models[0].id,
-  );
-  const [firmware, setFirmware] = useState('');
-  const [submission, setSubmission] = useState<{
-    model: string;
-    firmware: string;
-  } | null>(null);
-  const [error, setError] = useState('');
-  const result = submission
-    ? queryCompatibility(dataset, submission.model, submission.firmware)
-    : null;
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    if (!/^\d{1,2}\.\d{2}$/.test(firmware.trim())) {
-      setError('请输入有效格式，例如 03.00。示例版本不代表已验证支持。');
-      setSubmission(null);
-      return;
-    }
-    setError('');
-    setSubmission({ model, firmware: firmware.trim() });
-  }
-  function resetResult() {
-    setSubmission(null);
-    setError('');
-  }
-  return (
-    <section className="query-page">
-      <Link className="back-link" to="/">
-        首页 / 固件兼容性
-      </Link>
-      <div className="eyebrow">COMPATIBILITY EXPLORER</div>
-      <h1>
-        了解你的主机兼容性<span>。</span>
-      </h1>
-      <p className="page-intro">按型号与固件精确查询。没有证据，就保留未知。</p>
-      <div className="notice">
-        <ShieldCheck size={20} />
-        <div>
-          <strong>示例数据模式</strong>
-          <p>
-            可输入 03.00
-            查看示例记录，或输入其他版本查看未知结果。所有版本均不构成真实兼容性结论。
-          </p>
-        </div>
-      </div>
-      <div className="query-layout">
-        <form className="query-form" onSubmit={submit} noValidate>
-          <div className="panel-title">
-            <Search size={19} />
-            <h2>选择你的主机</h2>
-          </div>
-          <label htmlFor="model">主机型号</label>
-          <select
-            id="model"
-            value={model}
-            onChange={(e) => {
-              setModel(e.target.value);
-              resetResult();
-            }}
-          >
-            {dataset.models.map((m) => (
-              <option key={m.id} value={m.id}>
-                {m.name}
-              </option>
-            ))}
-          </select>
-          <p className="field-help">
-            {dataset.models.find((x) => x.id === model)?.description}
-          </p>
-          <label htmlFor="firmware">系统固件版本</label>
-          <input
-            id="firmware"
-            placeholder="例如 03.00"
-            value={firmware}
-            onChange={(e) => {
-              setFirmware(e.target.value);
-              resetResult();
-            }}
-            aria-invalid={!!error}
-            aria-describedby={error ? 'firmware-error' : 'firmware-help'}
-            autoComplete="off"
-            maxLength={20}
-          />
-          <p id="firmware-help" className="field-help">
-            手动输入设备显示的版本；不按版本范围推断。
-          </p>
-          {error && (
-            <p className="error" id="firmware-error" role="alert">
-              {error}
-            </p>
-          )}
-          <Button type="submit" className="w-full">
-            <Search size={17} />
-            查询兼容性
-            <ArrowRight size={17} />
-          </Button>
-          <div className="form-note">
-            <Check size={15} />
-            仅查询信息，不运行任何主机端代码
-          </div>
-        </form>
-        <div className="result-panel" aria-live="polite" aria-atomic="true">
-          {!result || !submission ? (
-            <div className="empty-result">
-              <div className="empty-icon">
-                <Cpu size={35} />
-              </div>
-              <h2>等待你的查询</h2>
-              <p>
-                选择型号并输入固件版本，
-                <br />
-                查看匹配记录与来源证据。
-              </p>
-              <span className="small-tag">EXACT MATCH ONLY</span>
-            </div>
-          ) : (
-            <>
-              <div className="result-header">
-                <div className="eyebrow">QUERY RESULT · 示例查询</div>
-                <Status status="unknown" />
-              </div>
-              <h2>
-                {dataset.models.find((x) => x.id === submission.model)?.code}
-              </h2>
-              <p className="firmware-value">
-                系统固件 <strong>{submission.firmware}</strong>
-              </p>
-              <div className="result-message">
-                <CircleHelp size={21} />
-                <div>
-                  <h3>兼容性未知</h3>
-                  <p>{result.reason}</p>
-                </div>
-              </div>
-              {result.records.map((r) => (
-                <article className="evidence-card" key={r.id}>
-                  <div className="eyebrow">
-                    {dataset.methods.find((x) => x.id === r.methodId)?.name}
-                  </div>
-                  <p>{r.explanation}</p>
-                  {r.evidenceIds.map((id) => {
-                    const ev = dataset.evidence.find((x) => x.id === id)!;
-                    return (
-                      <details key={id}>
-                        <summary>查看示例来源结构 · 未核验</summary>
-                        <p>{ev.summary}</p>
-                        <dl>
-                          <dt>发布者</dt>
-                          <dd>{ev.publisher}</dd>
-                          <dt>记录日期</dt>
-                          <dd>{ev.checkedAt.slice(0, 10)}（示例）</dd>
-                          <dt>适用范围</dt>
-                          <dd>
-                            {ev.scope.modelId} / {submission.firmware} /{' '}
-                            {ev.scope.methodId}
-                          </dd>
-                        </dl>
-                        <a href={ev.url} target="_blank" rel="noreferrer">
-                          {ev.title}
-                          <ExternalLink size={13} />
-                        </a>
-                      </details>
-                    );
-                  })}
-                </article>
-              ))}
-              <p className="field-help">
-                未知不等于不支持。本站没有可用于确认此组合的可靠证据。
-              </p>
-            </>
-          )}
-        </div>
-      </div>
-      <div className="section-heading">
-        <h2>如何理解查询状态</h2>
-      </div>
-      <Legend />
-    </section>
   );
 }
 function HostPage() {
@@ -457,7 +352,7 @@ export default function App() {
         <div className="header-inner">
           <Link to="/" className="brand" aria-label="PS5 Jailbreak Hub 首页">
             <span className="brand-icon">
-              <Layers3 size={23} />
+              <Gamepad2 size={23} />
             </span>
             <span>
               PS5<span className="brand-light"> JAILBREAK HUB</span>
@@ -473,15 +368,26 @@ export default function App() {
               PS5 Host <ArrowUpRight size={13} />
             </NavLink>
           </nav>
-          <span className="header-badge">
-            <span /> M0 PREVIEW
-          </span>
+          <ThemeSwitcher />
         </div>
       </header>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/compatibility" element={<CompatibilityPage />} />
+          <Route
+            path="/compatibility"
+            element={<CompatibilityPage key="published" />}
+          />
+          <Route
+            path="/demo/compatibility"
+            element={
+              <Suspense
+                fallback={<p className="page-intro">正在加载演示目录…</p>}
+              >
+                <DemoCompatibilityPage />
+              </Suspense>
+            }
+          />
           <Route path="/host" element={<HostPage />} />
           <Route
             path="*"
@@ -498,7 +404,7 @@ export default function App() {
         <div className="footer-brand">
           PS5 JAILBREAK HUB <span>独立中文知识项目 · 非 Sony 官方网站</span>
         </div>
-        <p>M0 · 示例数据 / 证据优先 / 不执行漏洞代码</p>
+        <p>M1 · 正式资料 / 演示隔离 / 证据优先</p>
       </footer>
     </>
   );

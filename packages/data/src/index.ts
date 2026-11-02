@@ -1,4 +1,4 @@
-import { datasetSchema } from '@ps5/core';
-import sample from './sample.json';
-/** 所有条目仅用于 M0 演示，不是兼容性数据库。 */
-export const dataset = datasetSchema.parse(sample);
+import { publishedDatasetSchema } from '@ps5/core';
+import published from './published.json';
+/** 默认导出只包含正式资料；不隐式回退到示例。 */
+export const dataset = publishedDatasetSchema.parse(published);
