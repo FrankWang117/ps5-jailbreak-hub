@@ -18,6 +18,7 @@ import { Status, Legend } from '@/components/status';
 import { ModelProfile } from '@/components/model-profile';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { CompatibilityPage } from './CompatibilityPage';
+import { KnowledgePage } from './KnowledgePage';
 const DemoCompatibilityPage = lazy(() => import('./DemoCompatibilityPage'));
 
 function ConsoleArt() {
@@ -176,10 +177,10 @@ function Home() {
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <a href="#knowledge">
+              <Link to="/knowledge">
                 浏览入门知识
                 <ArrowUpRight size={16} />
-              </a>
+              </Link>
             </Button>
           </div>
           <div className="hero-notes">
@@ -228,7 +229,7 @@ function Home() {
               开始查询 <ArrowRight size={17} />
             </span>
           </Link>
-          <a href="#knowledge" className="feature-card">
+          <Link to="/knowledge" className="feature-card">
             <BookOpen className="feature-icon" />
             <span className="card-index">02 / KNOWLEDGE</span>
             <h3>中文入门知识</h3>
@@ -236,7 +237,7 @@ function Home() {
             <span className="card-link">
               阅读基础说明 <ArrowRight size={17} />
             </span>
-          </a>
+          </Link>
           <Link to="/host" className="feature-card">
             <Gamepad2 className="feature-icon" />
             <span className="card-index">03 / CONSOLE HOST</span>
@@ -274,7 +275,9 @@ function Home() {
             <div className="eyebrow">LEVEL UP YOUR KNOWLEDGE</div>
             <h2>查询之前，先了解这三件事</h2>
           </div>
-          <BookOpen className="muted" />
+          <Link className="text-link" to="/knowledge">
+            进入知识库 →
+          </Link>
         </div>
         <div className="knowledge-grid">
           {[
@@ -364,6 +367,7 @@ export default function App() {
               首页
             </NavLink>
             <NavLink to="/compatibility">兼容性查询</NavLink>
+            <NavLink to="/knowledge">知识库</NavLink>
             <NavLink to="/host">
               PS5 Host <ArrowUpRight size={13} />
             </NavLink>
@@ -388,6 +392,8 @@ export default function App() {
               </Suspense>
             }
           />
+          <Route path="/knowledge" element={<KnowledgePage />} />
+          <Route path="/knowledge/:slug" element={<KnowledgePage />} />
           <Route path="/host" element={<HostPage />} />
           <Route
             path="*"
@@ -404,7 +410,7 @@ export default function App() {
         <div className="footer-brand">
           PS5 JAILBREAK HUB <span>独立中文知识项目 · 非 Sony 官方网站</span>
         </div>
-        <p>M1 · 正式资料 / 演示隔离 / 证据优先</p>
+        <p>M2 · 中文知识库 / 演示隔离 / 证据优先</p>
       </footer>
     </>
   );

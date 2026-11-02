@@ -326,3 +326,5 @@ export const publishedDatasetSchema = datasetSchema.superRefine((data, ctx) => {
       });
   }
 });
+
+export { knowledgeBaseSchema, type KnowledgeArticle } from './knowledge';

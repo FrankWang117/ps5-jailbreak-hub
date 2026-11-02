@@ -6,6 +6,7 @@ import { firmwareVersionSchema, type Dataset } from '@ps5/core';
 import { Button } from '@/components/ui/button';
 import { Legend } from '@/components/status';
 import { ModelProfile } from '@/components/model-profile';
+import { RelatedKnowledge } from './KnowledgePage';
 import { CompatibilityResults } from '@/components/compatibility-results';
 export function CompatibilityPage({
   data = dataset,
@@ -155,6 +156,7 @@ export function CompatibilityPage({
         <h2>如何理解查询状态</h2>
       </div>
       <Legend />
+      <RelatedKnowledge />
     </section>
   );
 }

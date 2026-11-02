@@ -40,3 +40,15 @@ it('keeps demo records and fictional versions out of the default query', () => {
     ).toHaveLength(0);
   expect(publishedDatasetSchema.safeParse(demoDataset).success).toBe(false);
 });
+
+it('validates the published knowledge JSON without treating articles as compatibility evidence', async () => {
+  const { knowledgeBaseSchema } = await import('@ps5/core');
+  const { knowledgeBase } = await import('./index');
+  expect(knowledgeBaseSchema.safeParse(knowledgeBase).success).toBe(true);
+  expect(knowledgeBase.articles).toHaveLength(4);
+  expect(
+    knowledgeBase.articles.every((article) => article.sources.length > 0),
+  ).toBe(true);
+  expect(dataset.evidence).toEqual([]);
+  expect(dataset.compatibility).toEqual([]);
+});

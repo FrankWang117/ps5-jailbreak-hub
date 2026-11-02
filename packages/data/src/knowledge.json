@@ -1,0 +1,224 @@
+{
+  "articles": [
+    {
+      "slug": "model-and-firmware",
+      "title": "型号与固件：先读对主机信息",
+      "summary": "找到型号和系统版本，理解本站短版本输入的边界。",
+      "updatedAt": "2026-11-02",
+      "sections": [
+        {
+          "id": "find-model",
+          "title": "先记录型号，再查看版本",
+          "paragraphs": [
+            "PlayStation 官方说明将型号标记定位在主机竖放时的底部。查看前请按设备说明安全放置主机；具体标记以实物为准。",
+            "型号用于区分设备资料，序列号用于标识具体设备。本站查询只需要型号和版本，不需要上传序列号。"
+          ]
+        },
+        {
+          "id": "find-version",
+          "title": "在主机信息中查看系统软件版本",
+          "paragraphs": [
+            "官方查看路径为：设定 → 系统 → 系统软件 → 主机信息。按设备实际显示记录版本；菜单名称可能因系统语言不同而变化。",
+            "型号资料不代表当前系统版本，也不能证明出厂固件或内部硬件修订。CFI-2200B01 未核验的字段和兼容性继续保留未知。"
+          ]
+        },
+        {
+          "id": "exact-version",
+          "title": "完整版本与短版本不能自行换算",
+          "paragraphs": [
+            "本站目前仅接收一至两位整数加两位小数的短版本字符串，并按原样精确匹配；03.00 与 3.00 不自动等价。这里的字符串仅用于说明输入规则，不代表该型号存在对应版本。",
+            "若设备显示完整系统软件版本，请保留完整原文。本站尚无经过核验的映射规则，不能截取其中一段后当作兼容性依据；格式不被接受与设备不受支持是两回事。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "official",
+          "title": "如何查找 PS5 主机序列号和型号",
+          "publisher": "PlayStation 支持服务（香港简体中文）",
+          "url": "https://www.playstation.com/zh-hans-hk/support/hardware/ps5-find-serial-model-numbers/",
+          "checkedAt": "2026-11-02",
+          "scope": "仅支持主机型号的查找位置；不支持出厂固件或兼容性推断。"
+        },
+        {
+          "kind": "official",
+          "title": "如何在 PS5 主机和 PS4 主机上检查更新",
+          "publisher": "PlayStation 支持服务（中国大陆）",
+          "url": "https://www.playstation.com/zh-hans-cn/support/hardware/playstation-system-software-application-version/",
+          "checkedAt": "2026-11-02",
+          "scope": "仅引用 PS5 系统软件版本的查看路径；不建立完整版本与本站短版本的映射。"
+        },
+        {
+          "kind": "editorial",
+          "title": "本站查询规则与术语约定",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-02",
+          "scope": "解释本站的精确匹配、五种状态、演示隔离及术语用法；属于本站规则，不是 Sony 官方兼容性结论。"
+        }
+      ],
+      "relatedSlugs": ["reading-evidence", "common-terms"]
+    },
+    {
+      "slug": "common-terms",
+      "title": "固件、Host、方案与 Payload",
+      "summary": "用本站的术语约定分清信息页面、研究进展和执行能力。",
+      "updatedAt": "2026-11-02",
+      "sections": [
+        {
+          "id": "firmware",
+          "title": "固件与型号",
+          "paragraphs": [
+            "本文将“固件”用作系统软件的通俗称呼；型号描述设备资料，固件版本描述系统软件版本，两者不能互相代替。实际版本的查看方式以 PlayStation 支持说明为准。"
+          ]
+        },
+        {
+          "id": "host",
+          "title": "Host 是入口，能力要看具体内容",
+          "paragraphs": [
+            "Host 在本站指供主机浏览的信息入口。它与 React Web 是独立应用，当前保留轻量信息页和本地状态检查。打开 Host 页面不代表获得任何系统权限。"
+          ]
+        },
+        {
+          "id": "method",
+          "title": "方案与漏洞研究",
+          "paragraphs": [
+            "方案是查询结果中被独立命名、记录适用范围及限制的对象。提到漏洞研究或展示研究进度，不等于已经存在可供用户使用的方案；本站用“研究中”单独表达这种证据状态。"
+          ]
+        },
+        {
+          "id": "payload",
+          "title": "Payload 只作概念解释",
+          "paragraphs": [
+            "在相关研究语境中，Payload 通常指通过某种机制加载的代码或数据，其作用取决于具体项目与运行环境。这个词本身不承诺任何功能或兼容性。",
+            "本站仅解释术语，不提供加载、执行、文件下载或操作教程。阅读知识库与执行主机端代码没有关联。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "editorial",
+          "title": "本站查询规则与术语约定",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-02",
+          "scope": "解释本站的精确匹配、五种状态、演示隔离及术语用法；属于本站规则，不是 Sony 官方兼容性结论。"
+        },
+        {
+          "kind": "official",
+          "title": "如何在 PS5 主机和 PS4 主机上检查更新",
+          "publisher": "PlayStation 支持服务（中国大陆）",
+          "url": "https://www.playstation.com/zh-hans-cn/support/hardware/playstation-system-software-application-version/",
+          "checkedAt": "2026-11-02",
+          "scope": "仅引用 PS5 系统软件版本的查看路径；不建立完整版本与本站短版本的映射。"
+        }
+      ],
+      "relatedSlugs": ["reading-evidence", "risks-and-misconceptions"]
+    },
+    {
+      "slug": "reading-evidence",
+      "title": "五种状态与证据：如何读查询结果",
+      "summary": "逐项查看范围、限制与核验时间，避免把未知读成不支持。",
+      "updatedAt": "2026-11-02",
+      "sections": [
+        {
+          "id": "five-statuses",
+          "title": "五种状态表达什么",
+          "paragraphs": [
+            "已验证：对应组合有可靠证据支持。部分可用：有证据支持，但必须同时阅读明确限制。研究中：有公开研究证据，尚待完善，不表示可用。",
+            "暂无公开方案：截至证据核验时间的有来源结论，有时间边界。未知：证据不足，不能确认支持或不支持；数据库没有记录时也属于未知。"
+          ]
+        },
+        {
+          "id": "scope",
+          "title": "按型号、固件、方案逐项核对",
+          "paragraphs": [
+            "每个方案独立展示状态。来源必须对应同一型号、固件版本、方案和状态；相邻版本、同系列设备或其他方案的结果不能直接继承。多个方案也不合并成“整台主机可破解”的结论。"
+          ]
+        },
+        {
+          "id": "source-check",
+          "title": "先看来源内容，再看时间和限制",
+          "paragraphs": [
+            "阅读原始来源的发布者、适用范围、核验日期和复现条件，检查其是否真的支持这条结论。链接存在、标题提及 PS5 或官方型号资料，都不足以证明破解兼容性。",
+            "历史来源只说明其时间范围内的情况；“暂无公开方案”尤其不能当作永久结论。结构校验和人工核验也不等于保证未来仍然适用。"
+          ]
+        },
+        {
+          "id": "demo",
+          "title": "正式资料与演示要分开",
+          "paragraphs": [
+            "独立示例查询用于展示界面和来源结构，示例值不证明真实设备存在该组合；示例参与的组合始终为未知。正式查询不会用演示记录填补空白。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "editorial",
+          "title": "本站查询规则与术语约定",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-02",
+          "scope": "解释本站的精确匹配、五种状态、演示隔离及术语用法；属于本站规则，不是 Sony 官方兼容性结论。"
+        }
+      ],
+      "relatedSlugs": ["model-and-firmware", "risks-and-misconceptions"]
+    },
+    {
+      "slug": "risks-and-misconceptions",
+      "title": "风险与误区：先弄清结论的边界",
+      "summary": "识别版本推断、研究宣传和系统操作的风险。",
+      "updatedAt": "2026-11-02",
+      "sections": [
+        {
+          "id": "lower-version",
+          "title": "低版本不等于一定可用",
+          "paragraphs": [
+            "本站不按版本大小、型号代际、地区、包装或浏览器信息判断兼容性。只有与实际型号、固件、具体方案及状态匹配的可靠证据，才能支持非未知结论。"
+          ]
+        },
+        {
+          "id": "research",
+          "title": "研究成果不等于使用承诺",
+          "paragraphs": [
+            "截图、传闻、演示视频或“支持某版本”的一句话，不能替代完整适用范围与限制。先看一手项目说明和可复现报告；条件不完整时保留未知，不盲目尝试。"
+          ]
+        },
+        {
+          "id": "system-risk",
+          "title": "系统操作可能影响设备和数据",
+          "paragraphs": [
+            "Sony 官方提醒，使用非官方数据或非规定方法更新，可能导致主机运行异常并影响保用服务；安装中断也可能损坏主机。",
+            "官方说明还指出，重新安装系统软件会清除主机数据。升级、重装与降级不是可互换的概念，不能把重装当作恢复旧版本的承诺。涉及系统维护前应阅读适用的官方说明并妥善备份。"
+          ]
+        },
+        {
+          "id": "query-only",
+          "title": "本站查询只提供信息",
+          "paragraphs": [
+            "查询和阅读不会替主机安装更新或执行代码，也不能验证你的具体设备。没有记录表示证据不足；需要维修或官方系统维护时，请使用 PlayStation 支持渠道。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "official",
+          "title": "如何在 PS5 主机上更新系统软件",
+          "publisher": "PlayStation 支持服务（中国大陆）",
+          "url": "https://www.playstation.com/zh-hans-cn/support/hardware/ps5/system-software/",
+          "checkedAt": "2026-11-02",
+          "scope": "支持重装清除数据、非官方更新及中断安装的风险说明；不作为任何破解方案的证据。"
+        },
+        {
+          "kind": "editorial",
+          "title": "本站查询规则与术语约定",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-02",
+          "scope": "解释本站的精确匹配、五种状态、演示隔离及术语用法；属于本站规则，不是 Sony 官方兼容性结论。"
+        }
+      ],
+      "relatedSlugs": ["reading-evidence", "model-and-firmware"]
+    }
+  ]
+}
