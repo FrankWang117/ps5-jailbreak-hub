@@ -1,0 +1,72 @@
+{
+  "models": [
+    {
+      "id": "cfi-2200b01",
+      "code": "CFI-2200B01",
+      "name": "CFI-2200B01 · 重点型号",
+      "region": "待来源核验",
+      "edition": "unknown",
+      "description": "M0 型号展示条目。地区、硬件配置及固件兼容性均待独立来源核验；型号不能用于推断系统版本。",
+      "isExample": true
+    },
+    {
+      "id": "demo-console",
+      "code": "DEMO-0000",
+      "name": "虚构演示主机",
+      "region": "示例",
+      "edition": "unknown",
+      "description": "用于演示型号切换，不代表真实设备。",
+      "isExample": true
+    }
+  ],
+  "firmwares": [
+    {
+      "id": "sample-03-00",
+      "version": "03.00",
+      "isExample": true
+    },
+    {
+      "id": "sample-99-99",
+      "version": "99.99",
+      "isExample": true
+    }
+  ],
+  "methods": [
+    {
+      "id": "demo-method",
+      "name": "示例方案占位",
+      "description": "仅演示数据关联，未收录实际漏洞或执行入口。",
+      "isExample": true
+    }
+  ],
+  "evidence": [
+    {
+      "id": "example-evidence",
+      "title": "示例证据结构（非真实来源）",
+      "url": "https://example.com/ps5-evidence-placeholder",
+      "publisher": "M0 示例",
+      "kind": "example",
+      "verified": false,
+      "checkedAt": "2026-11-02T00:00:00Z",
+      "summary": "仅展示来源、核验时间和适用范围的数据结构，不支持任何兼容性结论。",
+      "scope": {
+        "modelId": "cfi-2200b01",
+        "firmwareId": "sample-03-00",
+        "methodId": "demo-method",
+        "status": "unknown"
+      }
+    }
+  ],
+  "compatibility": [
+    {
+      "id": "sample-compatibility",
+      "modelId": "cfi-2200b01",
+      "firmwareId": "sample-03-00",
+      "methodId": "demo-method",
+      "status": "unknown",
+      "evidenceIds": ["example-evidence"],
+      "explanation": "没有经可靠来源核验的兼容性证据。此条目仅用于演示查询与证据展示。",
+      "isExample": true
+    }
+  ]
+}

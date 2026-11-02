@@ -1,0 +1,15 @@
+{
+  "name": "@ps5/host",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5174 --strictPort",
+    "build": "vite build",
+    "typecheck": "tsc --allowJs --checkJs --noEmit --lib ES2022,DOM public/main.js",
+    "test": "node --test host.test.js"
+  },
+  "devDependencies": {
+    "vite": "^7.2.0"
+  }
+}

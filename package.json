@@ -1,0 +1,33 @@
+{
+  "name": "ps5-jailbreak-hub",
+  "private": true,
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:web": "pnpm --filter @ps5/web dev",
+    "dev:host": "pnpm --filter @ps5/host dev",
+    "build": "turbo run build",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.0",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4",
+    "eslint": "^9.39.0",
+    "@eslint/js": "^9.39.0",
+    "typescript-eslint": "^8.46.0",
+    "globals": "^16.4.0",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "prettier": "^3.6.2"
+  },
+  "type": "module"
+}
