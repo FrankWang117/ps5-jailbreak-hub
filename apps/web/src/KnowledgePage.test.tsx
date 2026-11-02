@@ -6,7 +6,7 @@ import { knowledgeBase } from '@ps5/data';
 import App from './App';
 
 afterEach(cleanup);
-it('opens the library from home and reaches an article using the keyboard', async () => {
+it('opens the library from home and reads existing article sources', async () => {
   const user = userEvent.setup();
   render(
     <MemoryRouter>
@@ -19,9 +19,9 @@ it('opens the library from home and reaches an article using the keyboard', asyn
     name: '中文入门知识库',
   });
   expect(document.activeElement).toBe(title);
-  await user.tab();
-  expect(document.activeElement?.textContent).toContain('型号与固件');
-  await user.keyboard('{Enter}');
+  await user.click(
+    screen.getByRole('link', { name: /型号与固件：先读对主机信息/ }),
+  );
   expect(
     screen.getByRole('heading', {
       level: 1,
@@ -88,4 +88,43 @@ it('links unknown query results to evidence guidance and recovers from unknown a
   expect(screen.getByRole('heading', { name: '文章不存在' })).toBeTruthy();
   await user.click(screen.getByRole('link', { name: '返回知识库目录' }));
   expect(screen.getByRole('heading', { name: '中文入门知识库' })).toBeTruthy();
+});
+
+it('takes a first-time user from home to version guidance and a clean formal query', async () => {
+  const user = userEvent.setup();
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
+  const start = screen.getByRole('link', { name: /第一次开机，从这里开始/ });
+  start.focus();
+  await user.keyboard('{Enter}');
+  expect(document.activeElement).toBe(
+    screen.getByRole('heading', {
+      level: 1,
+      name: '第一次开机：先确认型号与系统版本',
+    }),
+  );
+  expect(screen.getByText(/12.40 只是规划假设/)).toBeTruthy();
+  expect(screen.getByText(/本文不保证按钮名称/)).toBeTruthy();
+  expect(screen.getByText(/不要拔电或强行关机/)).toBeTruthy();
+  expect(
+    screen.getByRole('figure', { name: '查找系统版本的日语菜单路径' }),
+  ).toBeTruthy();
+  expect(screen.getByText('本体情報 / 主机信息')).toBeTruthy();
+  expect(screen.getByText(/没有经过核验的转换规则/)).toBeTruthy();
+  await user.click(
+    screen.getByRole('link', { name: '带着实际版本，去正式查询 →' }),
+  );
+  const input = screen.getByLabelText('系统固件版本') as HTMLInputElement;
+  expect(input.value).toBe('');
+  await user.type(input, '12.40');
+  await user.keyboard('{Enter}');
+  expect(screen.getByText('兼容性未知')).toBeTruthy();
+  await user.click(screen.getByRole('link', { name: /不知道版本在哪里/ }));
+  expect(document.activeElement?.id).toBe('find-system-version');
+  expect(
+    screen.getByRole('heading', { name: '06 · 打开主机信息，照原样记录' }),
+  ).toBeTruthy();
 });

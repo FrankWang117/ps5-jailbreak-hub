@@ -101,6 +101,12 @@ export function CompatibilityPage({
           </p>
           <ModelProfile data={data} modelId={model} />
           <label htmlFor="firmware">系统固件版本</label>
+          <Link
+            className="text-link"
+            to="/knowledge/first-boot#find-system-version"
+          >
+            不知道版本在哪里？查看首次开机指南 →
+          </Link>
           <input
             id="firmware"
             placeholder="例如 03.00"

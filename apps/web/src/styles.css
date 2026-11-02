@@ -1577,3 +1577,39 @@ dt {
 .knowledge-page h1[tabindex='-1']:focus {
   outline: none;
 }
+
+.guide-diagram {
+  margin: 24px 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface-soft);
+}
+.guide-diagram .diagram-label {
+  margin: 0 0 14px;
+  font-weight: 700;
+}
+.guide-diagram ol {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 26px;
+  list-style: decimal;
+}
+.guide-diagram li {
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 15px;
+}
+.guide-diagram li::marker {
+  color: var(--accent);
+  font-weight: 700;
+}
+.guide-diagram figcaption {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.8;
+}

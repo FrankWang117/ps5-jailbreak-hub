@@ -56,3 +56,37 @@ it('requires dated, safe original sources and a consistent update date', () => {
     }).success,
   ).toBe(false);
 });
+
+it('validates optional diagrams without requiring them on existing articles', () => {
+  const data = fixture();
+  const withDiagram = (diagram: unknown) => ({
+    articles: [
+      {
+        ...data.articles[0],
+        sections: [{ ...data.articles[0].sections[0], diagram }],
+      },
+    ],
+  });
+  const diagram = {
+    label: '菜单路径',
+    steps: ['设置', '主机信息'],
+    caption: '本站示意，非实机截图',
+  };
+  expect(knowledgeBaseSchema.safeParse(data).success).toBe(true);
+  expect(knowledgeBaseSchema.safeParse(withDiagram(diagram)).success).toBe(
+    true,
+  );
+  expect(
+    knowledgeBaseSchema.safeParse(withDiagram({ ...diagram, steps: [] }))
+      .success,
+  ).toBe(false);
+  expect(
+    knowledgeBaseSchema.safeParse(
+      withDiagram({ ...diagram, steps: ['设置', ' '] }),
+    ).success,
+  ).toBe(false);
+  expect(
+    knowledgeBaseSchema.safeParse(withDiagram({ ...diagram, caption: '' }))
+      .success,
+  ).toBe(false);
+});

@@ -170,6 +170,13 @@ function Home() {
           </p>
           <div className="hero-actions">
             <Button asChild>
+              <Link to="/knowledge/first-boot">
+                <BookOpen size={17} />
+                第一次开机，从这里开始
+                <ArrowRight size={17} />
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
               <Link to="/compatibility">
                 <Search size={17} />
                 查询我的主机

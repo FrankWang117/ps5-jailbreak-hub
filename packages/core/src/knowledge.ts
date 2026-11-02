@@ -37,6 +37,13 @@ export const knowledgeBaseSchema = z
                 id: slug,
                 title: text,
                 paragraphs: z.array(text).min(1),
+                diagram: z
+                  .object({
+                    label: text,
+                    steps: z.array(text).min(2).max(8),
+                    caption: text,
+                  })
+                  .optional(),
               }),
             )
             .min(1),

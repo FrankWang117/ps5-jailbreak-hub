@@ -45,7 +45,7 @@ it('validates the published knowledge JSON without treating articles as compatib
   const { knowledgeBaseSchema } = await import('@ps5/core');
   const { knowledgeBase } = await import('./index');
   expect(knowledgeBaseSchema.safeParse(knowledgeBase).success).toBe(true);
-  expect(knowledgeBase.articles).toHaveLength(4);
+  expect(knowledgeBase.articles).toHaveLength(5);
   expect(
     knowledgeBase.articles.every((article) => article.sources.length > 0),
   ).toBe(true);

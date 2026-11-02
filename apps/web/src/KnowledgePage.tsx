@@ -33,10 +33,15 @@ export function KnowledgePage() {
   const heading = useRef<HTMLHeadingElement>(null);
   const article = knowledgeBase.articles.find((item) => item.slug === slug);
   useEffect(() => {
-    // 文章间导航把焦点带到正文；章节锚点保留浏览器原生行为。
-    if (!hash) heading.current?.focus({ preventScroll: true });
-    if (!hash)
+    // 路由跳转带锚点时也把阅读位置与键盘焦点带到目标章节。
+    if (hash) {
+      const section = document.getElementById(hash.slice(1));
+      section?.focus({ preventScroll: true });
+      section?.scrollIntoView?.({ block: 'start' });
+    } else {
+      heading.current?.focus({ preventScroll: true });
       document.querySelector('header')?.scrollIntoView?.({ block: 'start' });
+    }
   }, [pathname, hash]);
   if (slug && !article) {
     return (
@@ -61,14 +66,14 @@ export function KnowledgePage() {
           中文入门知识库
         </h1>
         <p className="page-intro">
-          从读懂主机信息开始，学会判断来源与结论的边界。
+          还没开机？先读首次开机指南，再确认版本、查询适用信息。
         </p>
         <div className="notice">
           <BookOpen size={22} aria-hidden="true" />
           <div>
             <strong>先了解，再查询</strong>
             <p>
-              官方说明与本站规则分别标注来源。文章只解释概念，不构成任何型号的兼容性结论。
+              官方说明与本站建议分别标注来源。首次开机指南待实机验证，文章不构成任何型号的兼容性结论。
             </p>
           </div>
         </div>
@@ -133,6 +138,20 @@ export function KnowledgePage() {
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
+                {section.diagram && (
+                  <figure
+                    className="guide-diagram"
+                    aria-label={section.diagram.label}
+                  >
+                    <p className="diagram-label">{section.diagram.label}</p>
+                    <ol>
+                      {section.diagram.steps.map((step) => (
+                        <li key={step}>{step}</li>
+                      ))}
+                    </ol>
+                    <figcaption>{section.diagram.caption}</figcaption>
+                  </figure>
+                )}
               </section>
             ))}
             <section
@@ -176,7 +195,9 @@ export function KnowledgePage() {
       </article>
       <RelatedKnowledge exclude={article.slug} />
       <Link className="text-link" to="/compatibility">
-        返回正式兼容性查询 →
+        {article.slug === 'first-boot'
+          ? '带着实际版本，去正式查询 →'
+          : '返回正式兼容性查询 →'}
       </Link>
     </div>
   );
