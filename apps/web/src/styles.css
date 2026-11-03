@@ -1628,7 +1628,7 @@ dt {
 }
 .guide-navigation ol {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
   margin: 0 0 12px;
   padding: 0;
@@ -1692,9 +1692,4 @@ dt {
   line-height: 1.8;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-}
-@media (min-width: 741px) {
-  .guide-navigation ol {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
 }

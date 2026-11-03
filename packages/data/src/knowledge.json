@@ -363,6 +363,7 @@
         }
       ],
       "relatedSlugs": [
+        "offline-game-workflow",
         "webkit-first-install",
         "browser-entry-preparation",
         "first-boot",
@@ -547,7 +548,7 @@
           "title": "先确认：这是待实机验证的安装草稿",
           "paragraphs": [
             "本文的终点是进入 Payload Manager，不包括安装游戏、运行游戏或配置游戏运行组件。你现在可以只阅读，不必照着执行；CFI-2200B01 尚未开机，实际版本未知，12.40 仍是研究假设。",
-            "下列步骤只适用于你已独立确认设备条件并决定研究该项目的情况。它们来自固定发布说明、README 和其依赖的电脑端模板源码；本站未运行第三方程序、未校验下载后的发布文件、未验证此型号的安装流程。目录中存在步骤不代表正式查询已经支持。",
+            "下列步骤只适用于你已独立确认设备条件并决定研究该项目的情况。它们来自固定发布说明、README 和其依赖的电脑端模板源码；本站仅对 Python 发布文件完成摘要与静态源码核对，未运行第三方程序，未验证此型号的安装流程。目录中存在步骤不代表正式查询已经支持。",
             "若还没确认真实完整版本、无法进入主界面，或初始化要求更新/登录才能继续，先回到首次开机指南，停下记录画面；不要用假设版本或别人的型号填补前提。"
           ]
         },
@@ -557,7 +558,7 @@
           "paragraphs": [
             "打开文末的 WebKit Autoloader v0.6.2 发布说明。macOS / Linux / WSL 对应文件名是 webkit-autoloader-host_v0.6.2.py，Windows 对应 webkit-autoloader-host_v0.6.2.exe；本篇以 macOS 的 Python 文件为主线。Windows 请对照该发布的 host 文件与运行说明，不把 macOS 命令直接复制过去。",
             "另一个 webkit-autoloader-installer_v0.6.2.elf 是已有加载环境时的主机端安装文件，不是未建立环境的新机要在电脑上双击的程序。不要把 Remote Loader 同名工具或不同版本文件替代本篇的 Autoloader host。",
-            "把选择的文件放在一个能找到的目录，并在这个目录打开终端。先检查 Python 3 是否存在，再对下载文件计算 SHA-256。发布元数据记录的 Python 文件摘要为 d343b0c8fdb4f3485f7704b05468f53d26559ae6bce8d6877ad656288681087c；这是来源记录，不是本站已下载验证的结果。计算值不一致或文件名不同，停止，不运行。"
+            "把选择的文件放在一个能找到的目录，并在这个目录打开终端。先检查 Python 3 是否存在，再对下载文件计算 SHA-256。发布元数据记录的 Python 文件摘要为 d343b0c8fdb4f3485f7704b05468f53d26559ae6bce8d6877ad656288681087c；该值已与本站本次下载的 Python 文本一致；不代表你下载的文件已经核对，也不证明运行安全。计算值不一致或文件名不同，停止，不运行。"
           ],
           "snippet": {
             "label": "macOS：只检查 Python 与文件摘要",
@@ -566,12 +567,23 @@
           }
         },
         {
+          "id": "release-review",
+          "title": "文件复核：已核对 Python 发布文件，尚未运行",
+          "paragraphs": [
+            "2026-11-03，本站下载并仅以文本读取 v0.6.2 的 Python 发布文件，共 11,878,965 字节；本地 SHA-256 与本篇记录的 d343b0c8fdb4f3485f7704b05468f53d26559ae6bce8d6877ad656288681087c 一致。这只确认本次文件与发布摘要一致，不证明安全、可用或你的设备兼容；你自己的文件仍需自行计算核对。Windows EXE 和主机 ELF 没有下载校验。",
+            "已核对该发布固定使用的 Remote Loader 依赖，发布脚本的 DNS、HTTPS、日志和退出代码与对应模板一致。文件内嵌两份 HTML；本站只读取其目录和计算摘要，没有打开页面或执行其中脚本。详细静态核验记录与来源范围见文末。",
+            "以下日志、地址和失败分支已能对应到本次发布文件的静态代码；实际启动、端口占用、TLS 握手、PS5 接入、安装与重启仍未测试。静态核对与运行测试分别记录，不把源码路径写成已观察到的成功现象。"
+          ]
+        },
+        {
           "id": "start-pc-host",
           "title": "02 · 在电脑端启动本地入口，先确认两个服务",
           "paragraphs": [
             "准备能互相访问的局域网电脑与 PS5，记录电脑当前局域网 IPv4 地址和主机原有网络/DNS设置。以下命令仅供阅读；决定执行前应确认文件来源与摘要，了解它会在电脑启动 DNS/HTTPS 服务。不要配置路由器公网端口转发。",
             "在文件所在目录使用下面的 macOS 命令。sudo 会要求电脑管理员权限；终端输入密码时通常不回显字符。若无法理解授权范围、系统拦截文件或出现证书信任提示，先停下核对，不关闭系统防护或导入未知根证书。",
-            "该发布依赖的 Remote Loader v0.1.2 host 模板默认使用 UDP 53 和 TCP 443；预期日志分别报告 DNS 和 HTTPS 已启动，并显示应填给主机的电脑地址。若是权限不足、端口占用或地址选错，先解决电脑端问题，不继续改主机设置；不要任意结束系统进程。"
+            "该发布依赖的 Remote Loader v0.1.2 host 模板默认在电脑全部 IPv4 接口（0.0.0.0）使用 UDP 53 和 TCP 443；预期日志分别报告 DNS 和 HTTPS 已启动，并显示应填给主机的电脑地址。若是权限不足、端口占用或地址选错，先解决电脑端问题，不继续改主机设置；不要任意结束系统进程。",
+            "两个服务要分别检查：发布代码先创建 DNS，再尝试 HTTPS。看到 DNS on UDP 53 但随后提示 HTTPS 绑定、证书或 TLS 失败，说明入口尚未就绪；正常退出的进程会由操作系统释放资源，当前不要继续改主机 DNS。即使两个服务都报告启动，也还没证明主机能访问。",
+            "电脑有 VPN、多块网卡或地址检测失败时，自动显示的 IP 可能不合适；检测失败的源码回退值是 127.0.0.1，不能照填给主机。--ip 参数只控制 DNS 返回的地址，不把服务限制到某块网卡；本篇不建议为了避开端口占用随意改 53/443，也没有证据证明 PS5 菜单可填写自定义 DNS 端口。"
           ],
           "snippet": {
             "label": "macOS：启动已核对的 v0.6.2 电脑端 host（本文不执行）",
@@ -584,7 +596,7 @@
           "title": "03 · 记录网络后，再对照项目的 DNS 入口",
           "paragraphs": [
             "官方日语网络入口为「設定 → ネットワーク → 設定 → インターネット接続を設定する」。项目 README 要求把 PS5 使用的 DNS 指向提供服务的电脑；填入的是该电脑在本局域网的地址，不是主机地址、127.0.0.1、网站预览地址或网上抄来的公网 DNS。",
-            "先保留原来的自动/手动模式及原值，再按该版本 host 的提示核对主 DNS。源码启动提示没有给出通用的次 DNS 填法，本文不补造；如果你的设置画面要求额外字段、无法保存或与说明不一致，记录画面并停止，不临时添加公网后备 DNS。",
+            "先保留原来的自动/手动模式及原值，再按该版本 host 的提示核对主 DNS。本次 Python 发布文件只提示主 DNS，没有给次 DNS 值；本文不补造。其他 Host 的“留空”或 0.0.0.0 不是本发布在该型号上的验证结果。如果画面要求额外字段、无法保存或与说明不一致，记录画面并停止，不临时添加公网后备 DNS。",
             "此时预期是主机与电脑可在本地网络通信。项目 host 对非目标域名返回失败响应，因此互联网或 PSN 检测失败不等于本地入口不可用；同样，DNS 指向正确也不等于后续安装已成功。遇到系统升级提示不要为连接成功而确认升级。"
           ]
         },
@@ -593,7 +605,7 @@
           "title": "04 · 打开用户指南，检查页面是否到达",
           "paragraphs": [
             "按「設定 → ユーザーズガイド、健康のためのご注意、その他の情報 → ユーザーズガイド」进入。这里原本是官方帮助入口；只有前面的本地服务和主机网络条件满足时，项目描述的页面才可能到达。",
-            "对照电脑日志：没有任何请求，先核对局域网地址和网络隔离；出现 TLS 握手失败，说明连接到了服务但会话未成功；出现文档已送达，只能证明入口页面送达，不能算缓存、安装或管理器成功。日志用语来自依赖源码，实际发布文件表现仍待验证。",
+            "对照电脑日志：没有任何请求，先核对局域网地址和网络隔离；出现 TLS 握手失败，说明连接到了服务但会话未成功；出现文档已送达，只能证明入口页面送达，不能算缓存、安装或管理器成功。日志用语已与发布文件静态代码核对，实际运行表现仍待验证。",
             "仍是官方帮助页、空白页或安全警告时，不盲按确认、不绕过证书警告、不反复叠加执行工具。记录页面、host 版本及最后日志，再回到浏览器准备篇排查。"
           ],
           "diagram": {
@@ -643,7 +655,7 @@
           "url": "https://github.com/itsPLK/ps5-webkit-autoloader/releases/tag/v0.6.2",
           "checkedAt": "2026-11-03",
           "revision": "tag v0.6.2；发布于 2026-10-28；2026-11-03 复核",
-          "scope": "支持平台文件选择、捆绑版本及 GitHub 资源摘要记录；未下载发布文件或验证其运行行为。"
+          "scope": "平台文件与捆绑版本；本次已下载 Python 文本并核对摘要及静态语法树，未运行。EXE / ELF 未下载校验，文件一致不证明兼容或安全。"
         },
         {
           "kind": "project",
@@ -667,10 +679,10 @@
           "kind": "project",
           "title": "Remote Loader v0.1.2：电脑端 host 模板",
           "publisher": "itsPLK 与贡献者",
-          "url": "https://github.com/itsPLK/ps5-webkit-remote-loader/blob/v0.1.2/host.py",
+          "url": "https://github.com/itsPLK/ps5-webkit-remote-loader/blob/d6666050a910d557f586f401051e8f33e9cc05ee/host.py",
           "checkedAt": "2026-11-03",
-          "revision": "固定 tag v0.1.2；源码阅读于 2026-11-03",
-          "scope": "用于推导默认端口、权限提示、连接/文档日志、Control-C 退出及 DNS 响应范围；发布资源实际行为未运行核验，次 DNS 值不补造。"
+          "revision": "v0.6.2 gitlink d6666050a910d557f586f401051e8f33e9cc05ee；2026-11-03 静态核对",
+          "scope": "发布文件函数/类语法树与固定依赖相同；默认监听、日志、地址回退、服务启动失败分支可静态追溯。未运行，次 DNS 仍未给出。"
         },
         {
           "kind": "project",
@@ -700,19 +712,318 @@
           "scope": "仅支持官方日语菜单位置，不证明重定向已成功或该型号可安装。"
         },
         {
+          "kind": "project",
+          "title": "Autoloader v0.6.2 Git tree：固定依赖",
+          "publisher": "itsPLK",
+          "url": "https://api.github.com/repos/itsPLK/ps5-webkit-autoloader/git/trees/v0.6.2?recursive=1",
+          "checkedAt": "2026-11-03",
+          "scope": "用于确认第三方依赖 gitlink；不作为设备兼容性证据。",
+          "revision": "tree c560e789aeaf1fca7b4baa30f2eee9054c8ab882"
+        },
+        {
           "kind": "editorial",
           "title": "本站安装草稿与停止条件",
           "publisher": "PS5 Jailbreak Hub 编辑说明",
           "url": null,
           "checkedAt": "2026-11-03",
           "revision": "2026-11-03",
-          "scope": "分阶段检查、记录与停止条件为本站编排；命令仅作为文章文本展示，网站不执行命令、改 DNS 或访问主机。发布文件校验和实机验收均未完成。"
+          "scope": "分阶段检查与停止条件是本站编排；Python 发布文件已完成摘要与静态核对，网站不执行命令、改 DNS 或访问主机，运行及实机验收未完成。"
         }
       ],
       "relatedSlugs": [
+        "offline-game-workflow",
         "browser-entry-preparation",
         "firmware-1240-routes",
         "first-boot"
+      ]
+    },
+    {
+      "slug": "offline-game-workflow",
+      "title": "管理器之后：离线游戏运行流程草稿",
+      "summary": "分清运行组件、游戏格式与离线条件，优先研究《战神：诸神黄昏》PS5 版。按识别、注册、启动、存档和重启检查；固定版本资料草稿，尚无本型号的完整验证。",
+      "updatedAt": "2026-11-03",
+      "sections": [
+        {
+          "id": "scope",
+          "title": "开始前：管理器打开，还差哪些环节",
+          "paragraphs": [
+            "本文承接首次安装草稿，终点是核对某一个具体游戏能否离线启动、游玩、保存并在重启后再运行。当前只整理公开资料，不要求你操作主机。CFI-2200B01 尚未开机，实际版本未知；12.40 仍是假设。",
+            "截至 2026-11-03，本文没有找到能覆盖 CFI-2200B01＋12.40＋下述准确组件版本＋具体游戏版本的完整复现材料。因此这是待实机验证的流程草稿，不能直接当作已验证安装配方；正式查询仍为未知。"
+          ],
+          "diagram": {
+            "label": "从入口到离线游玩的检查点",
+            "steps": [
+              "管理器可打开",
+              "运行组件就绪且无重复加载",
+              "识别游戏来源与元数据",
+              "注册图标并启动游戏",
+              "离线进入单机、保存并读档",
+              "关闭、重启后再次检查"
+            ],
+            "caption": "本站依据项目文档绘制的检查顺序，不是实机成功记录。出现图标只到注册阶段。"
+          }
+        },
+        {
+          "id": "versions",
+          "title": "01 · 先固定组件版本，选择一种运行环境",
+          "paragraphs": [
+            "候选环境 A：单独的 kstuff-lite v1.11，加 ShadowMountPlus 1.7beta11。ShadowMount 固定版本 README 要求 kstuff-lite v1.07+，但这个最低依赖声明不能证明上述组合在本型号的 12.40 上运行游戏。kstuff v1.11 发布说明的 FPKG 条目分别提到至 11.40 和 11.60 修复，不能据此外推 12.40 的所有 PS4/PS5 包都可用。",
+            "候选环境 B：GronedWaffel 的非官方 etaHEN v2.5B-unified.1 已内置 kstuff-lite v1.11；不要再加载第二份 kstuff，也不要覆盖当前已运行的 etaHEN。其发布说明要求在全新开机并完成适用入口后只加载一次；列有 12.40 配置与社区启动反馈，但完整功能和游戏实测主要来自 13.60，不能互相替代。",
+            "不要把 A 和 B 叠加成“多装几个更保险”。目前也没有证据把 B 与上游 ShadowMount 1.7beta11 直接认定为本机推荐组合。先记录文件来源、准确 tag 和摘要，再决定采用哪一条有匹配材料的路线；本轮不提供自动加载清单。"
+          ]
+        },
+        {
+          "id": "conflicts",
+          "title": "02 · 两条不能照抄的组合说明",
+          "paragraphs": [
+            "etaHEN 仓库的 KSTUFF-SHADOWMOUNT-COMPATIBILITY 文档讨论的是 13.60、特制 1.7beta2-snipers1360-r1 与特定暂停机制修正。它不是 12.40 配方，也不是上游 1.7beta11 的组合验证。文档中的启动顺序与实机跟进不能挪用到当前假设。",
+            "ShadowMount 1.7beta11 的 README 中仍有 shadowmountplus.elf、延时、kstuff.elf 的 autoload 示例；etaHEN 则禁止第二份 kstuff，而前篇 Autoloader 在存在 autoload.txt 时也不会默认打开管理器。不能拼接这些片段作为通用脚本。",
+            "ShadowMount 的 backport_fakelib 默认开启，项目明确要求关闭独立 BackPork，否则冲突。这里说明的是运行组件冲突，不表示已准备好任何游戏的 backport 文件。"
+          ]
+        },
+        {
+          "id": "firmware-reports",
+          "title": "12.40 报告：游玩、重开与休眠要分别看",
+          "paragraphs": [
+            "在 ShadowMount issue #115 中，MioMate187 于 2026-09-21 自述胖版 PS5、12.40、P2JB、kstuff-lite 1.10 和 ShadowMount 1.6 beta16，曾完成多款游戏；升级多个组件后又报告崩溃。10 月 14 日补充称 1.7 beta5fix1 与称为 dr12 的 kstuff 可启动和游玩，但休眠或关机仍经常崩溃。没有具体游戏版本、全部文件摘要或本型号记录，不能据此推荐旧组合，也无法把原因归给某个组件。",
+            "issue #128 的 10 月 16 日评论另自述胖版 12.40、Y2JB，连续打开两个游戏/应用后出错，且声称使用 WebKit Autoloader 时没遇到；评论未给完整组件版本。它只提示需要单独检查退出后再启动，不能照抄评论的重复加载办法，也不证明某条入口普遍更稳定。",
+            "这些是一手用户报告，来源标为社区报告；“有人在 12.40 玩过游戏”与“你的 CFI-2200B01 有可靠配方”是不同结论。新版本也不能仅凭版本号认定修复了旧报告。"
+          ]
+        },
+        {
+          "id": "game-record",
+          "title": "03 · 先选一个游戏，分清 PS4 / PS5 和文件格式",
+          "paragraphs": [
+            "先写清游戏名称、PS4 或 PS5 版、TITLE_ID、基础版本、补丁版本、DLC、来源格式，以及该版本要求的系统软件。不能只写游戏名；同名 PS4 与 PS5 版、不同补丁都要分别记录。Sony 官方向后兼容说明针对普通受支持 PS4 游戏，不能拿来证明破解环境或某个 FPKG 的兼容性。",
+            "不要混淆 .pkg 与 .ffpkg：ShadowMount 的 .ffpkg 是 UFS 镜像；.exfat 是 exFAT 镜像；.ffpfs / .ffpfsc 是项目标为实验性的 PFS / 容器路线。改扩展名不会转换格式。首次排查只保留一个 TITLE_ID 的一个来源，避免重复注册。",
+            "某个游戏需要何种 backport、补丁和最低系统，目前没有游戏名与对应版本资料，全部记为未知。挂载器支持一种格式，不表示游戏依赖已经满足；遇到系统更新要求先记录并停止，不为尝试启动而升级。本文不提供游戏下载来源。"
+          ]
+        },
+        {
+          "id": "ragnarok-first-game",
+          "title": "优先游戏：《战神：诸神黄昏》PS5 版",
+          "paragraphs": [
+            "本篇优先研究 God of War Ragnarök《战神：诸神黄昏》PS5 版，PS4 版另行记录。官方美区页面与商店标明支持离线游玩、1 位玩家，同时销售 PS4 与 PS4/PS5 不同版本。游戏具备本地单人内容，但这不能证明任意副本在 12.40 的破解环境可运行；本体、补丁、DLC 和首次取得/授权条件仍应分开。",
+            "美区 PS4/PS5 标准版商品标识为 UP9000-PPSA08329_00-GOWRAGNAROK00000，只用于核对该地区商品。不能把它直接当作你持有副本的 TITLE_ID；你的地区、平台、基础/补丁版本、格式、最低系统要求与 backport 仍未知。官方页面的升级提示不是某个补丁的精确最低系统证据，本文不因此安排系统更新。",
+            "与本作直接相关的 ShadowMount Discussion #99：veteransdr 自述 PS5 Pro、系统原文 12.40.00.09、PPSA08329、06.006.000、kstuff-lite v1.09，以及 ShadowMount v1.6test15-fix2 / v1.6beta16。文件夹启动有卡顿；其后先报告 exFAT 改善，又更正两种运行内容可能不等价；8 月 11 日再自述同文件改为 UFS .ffpkg 后一段流程顺畅。这是他人局部游玩报告，没有本型号、离线/存档/重启完整验证；不把 12.40.00.09 转为正式查询的 12.40，也不据此推荐旧组件或认定某格式必然更好。",
+            "另一个 Game Compressor issue #39 只自述 12.40、kstuff-lite 1.09、ShadowMount 1.6beta16 下制作镜像/压缩时崩溃，列出的本作是 PPSA08330、05.005.000。这不是游戏启动或离线通关报告；两个报告的游戏编号与版本不能互相继承。"
+          ]
+        },
+        {
+          "id": "ragnarok-content",
+          "title": "本体与《英灵殿》：补丁不等于已装 DLC",
+          "paragraphs": [
+            "Santa Monica Studio 的官方 05.01 说明明确：《英灵殿》（Valhalla）需要另行下载，不会随本体补丁自动完整取得；本体与 DLC 都完整安装后，才从本体主菜单进入。它不能作为本体是否能离线单机游玩的替代检查。",
+            "官方 05.05 说明要求 PS5 的本体与《英灵殿》都匹配更新。这里采用的是内容依赖说明，不是让你联网更新；也不能把报告里的 05.005.000 仅按数字相似就认定等于官方 05.05。当前没有足够证据填写你将使用的精确最低系统或 backport 要求。",
+            "首次验收先聚焦本体：进入可操作的单人剧情，记录画面模式与游戏版本，保存后正常退出，再离线读档；之后检查退出重开和正常重启。最后再单独研究《英灵殿》的内容版本与安装完整性。以上是本站待执行清单，尚未在你的设备上操作。"
+          ]
+        },
+        {
+          "id": "discover",
+          "title": "04 · 有匹配组合证据后，再检查扫描与注册",
+          "paragraphs": [
+            "以下是 ShadowMount 1.7beta11 的文档检查点，需先核对适用条件，尚无本型号的复现记录。该项目说明通过适用的加载器启动后会出现 ShadowMount+ 通知；其手动发送示例使用 9021，但前篇 elfldr 默认仅接受主机本地连接，不能假定电脑能直接连接，也不能据此修改网络。",
+            "文档默认扫描位置包含 /data/homebrew、/data/etaHEN/games 及 USB 对应目录。存在自定义 scanpath 时只扫描指定根目录，另有项目保留的挂载扫描路径；默认深度只检查第一层子目录。先核对配置与来源位置，再判断未出现图标的原因。",
+            "文件夹来源应包含 eboot.bin 或 eboot2.bin，以及 sce_sys/param.json 或 sce_sys/param.sfo。镜像的游戏元数据应在镜像根目录，不能额外套一层游戏文件夹；压缩 PFS 容器另按项目的嵌套镜像要求检查。等待复制完成和扫描后，分别记录“识别来源”“注册成功通知”“出现图标”，不要把它们合成游戏运行成功。"
+          ]
+        },
+        {
+          "id": "launch",
+          "title": "05 · 再验证启动、离线游玩与存档",
+          "paragraphs": [
+            "本节为本站待执行的验收方法。只有来源、组合和注册条件已明确时，才从游戏主页尝试打开目标游戏，记录进入标题画面、进入可操作的单机内容、游玩时长及错误码。不能用启动动画或 FPS 浮层代替游玩结果。",
+            "“不访问互联网”“保留局域网”“不登录 PSN”分别记录。Relapse 入口仍要求已连接的本地网络接口；若游戏来源在 USB，就保持来源盘连接；若此前使用 SMB，ShadowMount 文档说文件夹/镜像会先复制到本地再注册启动，不把远端目录当成本地完整副本。离线验收不要求破坏入口所需的局域网条件。",
+            "进入单机后手动保存、正常退出，再在相同离线条件下读档。若出现强制账号、服务器、额外下载或授权提示，记录具体原文和游戏版本，保持“未通过离线验收”，不要写成所有单机游戏都能离线。上面的《战神：诸神黄昏》是优先研究目标，具体副本的首次授权、追加下载与离线条件仍需逐版本核对。"
+          ]
+        },
+        {
+          "id": "restart",
+          "title": "06 · 正常关闭、重启后再查一次",
+          "paragraphs": [
+            "ShadowMount 默认在游戏启动时挂载镜像、退出后释放；开启 persistent_image_mounts 会改变这一点，USB 镜像在休眠时仍会释放。退出游戏后等操作结束，不在游戏运行或写入时拔来源盘。项目明确提示挂载可能造成关机问题和内部存储数据损坏；这也是首次验收必须单独记录退出与关机的原因。",
+            "正常重启后先确认本次入口与运行组件状态，再按已核验的同一组合恢复；保留图标不表示内存中的环境仍在。不要反复发送同一组件来碰运气。依次记录管理器、组件、来源盘、游戏启动、读档的结果，避免把“重启后不能玩”直接归为游戏坏了。",
+            "休眠/唤醒是另一项测试，正常退出与重启成功不能替代它。当前没有该型号、12.40 与本文组件组合的带游戏休眠结果；不要照抄 13.60 的无游戏启动反馈。"
+          ]
+        },
+        {
+          "id": "failure",
+          "title": "07 · 按现象定位，不先删存档",
+          "paragraphs": [
+            "没出现游戏：查扫描根目录、深度、复制是否结束、元数据是否齐全及重复 TITLE_ID。ShadowMount 默认日志位置是 /data/shadowmount/debug.log；保留对应时间和错误原文。不要开启强制挂载来跳过损坏来源。",
+            "图标已出现但不能启动：区分 Register failed、挂载错误、游戏崩溃、系统版本要求和联网提示。一次只核对一个条件；若组件组合证据不足，先停止叠加组件，补对应版本的报告。",
+            "上游排错最后提到从系统设置删除游戏数据，并明确警告会删除存档。本文不将此作为小白默认处理步骤；先保留日志与存档，未弄清删除范围时停止。遇到系统更新正在安装，不强制断电。"
+          ]
+        },
+        {
+          "id": "record",
+          "title": "08 · 保存一份可复核记录，空白就写未知",
+          "paragraphs": [
+            "下面是记录模板，不会发送到服务器，也不会自动生成兼容性结论。当前可以先研究资料，所有设备操作项保持未执行；之后的真实反馈应与本文资料核验日期分开。"
+          ],
+          "snippet": {
+            "label": "离线单机验证记录（静态模板）",
+            "language": "text",
+            "code": "型号 / 完整系统版本：未知\n入口 / 加载器版本：未知\n运行环境（A 或 B）/ 文件 tag / SHA-256：未知\n挂载器版本 / 是否使用独立 BackPork：未知\n游戏 / PS4 或 PS5 / TITLE_ID：未知\n基础版本 / 补丁 / DLC / 格式 / 最低系统要求：未知\n互联网 / 局域网 / PSN / 来源存储：未知\n来源识别 / 注册 / 启动 / 单机游玩时长：未执行\n保存 / 退出 / 离线读档：未执行\n正常重启后恢复 / 再启动读档：未执行\n休眠唤醒（单独记录）：未执行\n错误原文 / 日志时间 / 资料或实测日期：未知"
+          }
+        },
+        {
+          "id": "remaining",
+          "title": "还缺什么，才能变成可照做的完整教程",
+          "paragraphs": [
+            "还需补齐对应 12.40 的准确组件组合报告、首款游戏及其版本/补丁/系统要求/离线条件，以及首次安装篇未确定的次 DNS 和发布脚本实际行为。现在先完成资料路线与排查检查点；不把这些缺口补猜成步骤，也不要求你先开机才能继续研究。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "project",
+          "title": "ShadowMountPlus README",
+          "publisher": "drakmor",
+          "url": "https://github.com/drakmor/ShadowMountPlus/blob/1.7beta11/README.md",
+          "scope": "依赖声明、格式、扫描/注册、配置、BackPork 冲突与存储风险；不证明本型号或具体游戏可运行。",
+          "revision": "tag 1.7beta11",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "project",
+          "title": "ShadowMountPlus 1.7beta11 发布说明",
+          "publisher": "drakmor",
+          "url": "https://github.com/drakmor/ShadowMountPlus/releases/tag/1.7beta11",
+          "scope": "PKG 队列、游戏/补丁/DLC 顺序与发布元数据；不能将队列完成写成游戏成功。",
+          "revision": "1.7beta11；发布于 2026-10-29 21:22 UTC",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "project",
+          "title": "Kstuff Lite 1.11 Beta 发布说明",
+          "publisher": "EchoStretch",
+          "url": "https://github.com/EchoStretch/kstuff-lite/releases/tag/v1.11",
+          "scope": "宽范围固件声明与 FPKG 变更分别读取；不能外推 12.40 全功能。",
+          "revision": "tag v1.11",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "project",
+          "title": "etaHEN Unified r1 发布说明",
+          "publisher": "GronedWaffel",
+          "url": "https://github.com/GronedWaffel/etahen-11.00-13.60/blob/v2.5B-unified.1/RELEASE-NOTES-unified-r1.md",
+          "scope": "非官方移植、内置 kstuff、禁止重复加载及实测范围；启动反馈不是完整游戏验证。",
+          "revision": "tag v2.5B-unified.1",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "project",
+          "title": "13.60 kstuff / etaHEN / ShadowMount 集成记录",
+          "publisher": "GronedWaffel",
+          "url": "https://github.com/GronedWaffel/etahen-11.00-13.60/blob/v2.5B-unified.1/KSTUFF-SHADOWMOUNT-COMPATIBILITY.md",
+          "scope": "仅用于说明特定 13.60 候选组合及验证缺口，不能用作 12.40 操作配方。",
+          "revision": "tag v2.5B-unified.1",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "official",
+          "title": "PS4 游戏在 PS5 上的向后兼容",
+          "publisher": "Sony / PlayStation",
+          "url": "https://www.playstation.com/en-us/support/games/ps5-backward-compatibility-games/",
+          "scope": "仅说明普通受支持 PS4 游戏的兼容性及限制；不采用官方更新建议作为本草稿步骤，不为破解环境背书。",
+          "revision": "2026-11-03 阅读快照",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2：缓存与安装状态",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/blob/v0.6.2/ARCHITECTURE.md",
+          "checkedAt": "2026-11-03",
+          "revision": "固定 tag v0.6.2；2026-11-03 复核",
+          "scope": "支持缓存完整标记、安装完成与选择状态的区别、Relapse 本地网络要求；不是本型号复现记录。"
+        },
+        {
+          "kind": "editorial",
+          "title": "本站流程与验收规则",
+          "publisher": "PS5 Jailbreak Hub",
+          "url": null,
+          "scope": "游戏信息清单、离线/存档/重启验收与停止条件是本站方法，尚未执行，不是项目实测报告。",
+          "revision": "2026-11-03",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "community",
+          "title": "ShadowMount #115：12.40 组件升级与休眠反馈",
+          "publisher": "MioMate187 等 / ShadowMount GitHub issue",
+          "url": "https://github.com/drakmor/ShadowMountPlus/issues/115",
+          "scope": "仅支持报告者自述组合、游玩与后续故障；不是复现验证、根因判断或本型号推荐。",
+          "revision": "2026-09-21 正文；复核至 2026-10-16 评论",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "community",
+          "title": "ShadowMount #128：12.40 退出后重开反馈",
+          "publisher": "witcherslf72-design / ShadowMount GitHub issue",
+          "url": "https://github.com/drakmor/ShadowMountPlus/issues/128#issuecomment-6205842648",
+          "scope": "仅该条评论自述胖版 12.40 与 Y2JB，完整组件/游戏版本缺失；主楼 13.60 不能混入。",
+          "revision": "2026-10-16 评论",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "community",
+          "title": "Game Compressor #39：12.40 压缩崩溃报告",
+          "publisher": "MioMate187 / PS5-Game-Compressor GitHub issue",
+          "url": "https://github.com/juma-sayeh/PS5-Game-Compressor/issues/39",
+          "checkedAt": "2026-11-03",
+          "scope": "报告者自述 PPSA08330 / 05.005.000 与组件，仅说明制作镜像/压缩故障，不作为启动或离线验证。",
+          "revision": "2026-07-07 报告；2026-11-03 复核"
+        },
+        {
+          "kind": "official",
+          "title": "《战神：诸神黄昏》官方游戏页",
+          "publisher": "Sony / PlayStation",
+          "url": "https://www.playstation.com/en-us/games/god-of-war-ragnarok/",
+          "scope": "平台、单人和离线标签；不提供本教程所需的精确补丁最低系统或破解组合证据。",
+          "revision": "美区 2026-11-03 阅读快照",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "official",
+          "title": "《战神：诸神黄昏》美区 PS4/PS5 标准版",
+          "publisher": "Sony / PlayStation Store",
+          "url": "https://store.playstation.com/en-us/product/UP9000-PPSA08329_00-GOWRAGNAROK00000",
+          "scope": "只核对该地区商品标识；不能替用户确认副本、地区和版本。",
+          "revision": "美区 2026-11-03 阅读快照",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "official",
+          "title": "官方 05.01：《英灵殿》内容依赖",
+          "publisher": "Santa Monica Studio",
+          "url": "https://support.sms.playstation.com/hc/en-us/articles/22256742307341-Patch-Notes-v-05-01-God-of-War-Ragnar%C3%B6k-Valhalla",
+          "scope": "DLC 需另行取得且需本体完整安装；不作为联网下载操作步骤。",
+          "revision": "官方 v.05.01；2026-11-03 阅读",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "official",
+          "title": "官方 05.05：本体与 DLC 更新说明",
+          "publisher": "Santa Monica Studio",
+          "url": "https://support.sms.playstation.com/hc/en-us/articles/23637605401741-Patch-Notes-v-05-05",
+          "scope": "PS5 本体/DLC 版本依赖，不能转换社区版本字符串或推导最低系统。",
+          "revision": "官方 v.05.05；2026-11-03 阅读",
+          "checkedAt": "2026-11-03"
+        },
+        {
+          "kind": "community",
+          "title": "ShadowMount Discussion #99：本作格式与卡顿报告",
+          "publisher": "veteransdr / ShadowMount GitHub Discussion",
+          "url": "https://github.com/drakmor/ShadowMountPlus/discussions/99",
+          "scope": "PS5 Pro、原文 12.40.00.09 与特定版本的局部运行自述；包含 exFAT 比较更正，不证明本型号或完整离线重启流程。",
+          "revision": "2026-07-31 正文；2026-08-04 更正与 08-11 跟进",
+          "checkedAt": "2026-11-03"
+        }
+      ],
+      "relatedSlugs": [
+        "webkit-first-install",
+        "firmware-1240-routes",
+        "reading-evidence"
       ]
     },
     {

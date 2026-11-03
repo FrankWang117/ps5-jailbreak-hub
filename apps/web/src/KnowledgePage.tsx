@@ -49,7 +49,9 @@ export function KnowledgePage() {
           ? 'preparation'
           : slug === 'webkit-first-install'
             ? 'installation'
-            : null;
+            : slug === 'offline-game-workflow'
+              ? 'offline'
+              : null;
   useEffect(() => {
     // 路由跳转带锚点时也把阅读位置与键盘焦点带到目标章节。
     if (hash) {

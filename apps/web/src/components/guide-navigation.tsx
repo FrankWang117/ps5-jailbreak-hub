@@ -19,6 +19,11 @@ const steps = [
     label: '安装草稿',
     to: '/knowledge/webkit-first-install',
   },
+  {
+    id: 'offline',
+    label: '离线游玩草稿',
+    to: '/knowledge/offline-game-workflow',
+  },
 ] as const;
 
 type GuideStep = (typeof steps)[number]['id'];
@@ -26,7 +31,7 @@ type GuideStep = (typeof steps)[number]['id'];
 export function GuideNavigation({ current }: { current: GuideStep }) {
   return (
     <nav className="guide-navigation" aria-label="新手阅读路径">
-      <p>从确认设备到准备路线</p>
+      <p>从确认设备到离线游玩资料</p>
       <ol>
         {steps.map((step, index) => (
           <li key={step.id}>
@@ -41,7 +46,7 @@ export function GuideNavigation({ current }: { current: GuideStep }) {
         ))}
       </ol>
       <small>
-        这是阅读顺序，不表示设备操作已完成。安装教程为草稿，待实机验证。
+        这是阅读顺序，不表示设备操作已完成。安装与游玩教程为草稿，待实机验证。
       </small>
     </nav>
   );

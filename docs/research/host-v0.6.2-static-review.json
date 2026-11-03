@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-11-03",
+  "method": "Read bytes; hashlib SHA-256; ast.parse and AST comparison without line attributes; ast.literal_eval of embedded string; base64 decode and in-memory zipfile reads. No imports or execution of reviewed script, no browser opening of embedded HTML, no extraction to disk.",
+  "release": "https://github.com/itsPLK/ps5-webkit-autoloader/releases/tag/v0.6.2",
+  "assetUrl": "https://github.com/itsPLK/ps5-webkit-autoloader/releases/download/v0.6.2/webkit-autoloader-host_v0.6.2.py",
+  "bytes": 11878965,
+  "sha256": "d343b0c8fdb4f3485f7704b05468f53d26559ae6bce8d6877ad656288681087c",
+  "expectedReleaseSha256": "d343b0c8fdb4f3485f7704b05468f53d26559ae6bce8d6877ad656288681087c",
+  "digestMatches": true,
+  "autoloaderTree": "c560e789aeaf1fca7b4baa30f2eee9054c8ab882",
+  "gitTreeUrl": "https://api.github.com/repos/itsPLK/ps5-webkit-autoloader/git/trees/v0.6.2?recursive=1",
+  "remoteLoaderGitlink": "d6666050a910d557f586f401051e8f33e9cc05ee",
+  "templateUrl": "https://github.com/itsPLK/ps5-webkit-remote-loader/blob/d6666050a910d557f586f401051e8f33e9cc05ee/host.py",
+  "topLevelNodeCounts": {
+    "release": 56,
+    "template": 56
+  },
+  "changedTopLevelAssignments": [
+    ["VERSION"],
+    ["HOST_NAME"],
+    ["BUILD_TIME"],
+    ["SSL_CERT_PEM"],
+    ["SSL_KEY_PEM"],
+    ["EMBEDDED_ZIP_B64"]
+  ],
+  "definitionMatches": {
+    "get_embedded_zip": true,
+    "style": true,
+    "say": true,
+    "good": true,
+    "bad": true,
+    "note": true,
+    "bind_hint": true,
+    "detect_local_ip": true,
+    "validate_ip": true,
+    "parse_query": true,
+    "build_response": true,
+    "DNSHandler": true,
+    "DNSServer": true,
+    "GuideHandler": true,
+    "build_server": true,
+    "make_cert": true,
+    "LoggingSSLContext": true,
+    "Status": true,
+    "parse_args": true,
+    "main": true
+  },
+  "embeddedFiles": [
+    {
+      "name": "index.html",
+      "bytes": 6402389,
+      "sha256": "33ec60dde421c77f8ee362443f511209e45c10e02469921c84b206eef6960a72"
+    },
+    {
+      "name": "poops.html",
+      "bytes": 6694918,
+      "sha256": "8293e32e74abdb71cec0e50f0c60849c3ab3d62dbddbd4e297f17c3a0512778a"
+    }
+  ],
+  "runtimeTested": false,
+  "ps5Tested": false,
+  "secondaryDnsSpecified": false,
+  "limits": [
+    "No security certification or full exploit audit.",
+    "No firmware or model compatibility conclusion.",
+    "Windows EXE and PS5 ELF not downloaded or hashed locally.",
+    "Embedded pages were hashed, not executed or fully audited."
+  ]
+}

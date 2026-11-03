@@ -263,3 +263,79 @@ it('opens the installation draft from preparation and displays commands only as 
   await user.keyboard('{Enter}');
   expect(screen.getByText('兼容性未知')).toBeTruthy();
 });
+
+it('continues to offline workflow with scoped component evidence and returns to an unknown query', async () => {
+  const user = userEvent.setup();
+  render(
+    <MemoryRouter initialEntries={['/knowledge/webkit-first-install']}>
+      <App />
+    </MemoryRouter>,
+  );
+  const next = screen.getByRole('link', { name: '继续阅读：离线游玩草稿 →' });
+  next.focus();
+  await user.keyboard('{Enter}');
+  expect(document.activeElement).toBe(
+    screen.getByRole('heading', {
+      level: 1,
+      name: '管理器之后：离线游戏运行流程草稿',
+    }),
+  );
+  const path = screen.getByRole('navigation', { name: '新手阅读路径' });
+  expect(within(path).getAllByRole('link')).toHaveLength(6);
+  expect(
+    within(path)
+      .getByRole('link', { name: '离线游玩草稿' })
+      .getAttribute('aria-current'),
+  ).toBe('step');
+  expect(screen.getByText(/不要再加载第二份 kstuff/)).toBeTruthy();
+  expect(screen.getByText(/它不是 12.40 配方/)).toBeTruthy();
+  expect(
+    screen.getByRole('figure', { name: '从入口到离线游玩的检查点' }),
+  ).toBeTruthy();
+  expect(screen.getByText(/正常重启后恢复 \/ 再启动读档：未执行/).tagName).toBe(
+    'CODE',
+  );
+  expect(screen.queryByRole('link', { name: /继续阅读：/ })).toBeNull();
+  await user.click(screen.getByRole('link', { name: '返回正式兼容性查询 →' }));
+  expect(
+    (screen.getByLabelText('系统固件版本') as HTMLInputElement).value,
+  ).toBe('');
+  await user.type(screen.getByLabelText('系统固件版本'), '12.40');
+  await user.keyboard('{Enter}');
+  expect(screen.getByText('兼容性未知')).toBeTruthy();
+  expect(screen.getByText('0 条方案记录')).toBeTruthy();
+});
+
+it('distinguishes release-file review from execution and opens the selected game research by keyboard', async () => {
+  const user = userEvent.setup();
+  render(
+    <MemoryRouter
+      initialEntries={['/knowledge/webkit-first-install#release-review']}
+    >
+      <App />
+    </MemoryRouter>,
+  );
+  expect(document.activeElement?.id).toBe('release-review');
+  expect(screen.getByText(/11,878,965 字节/)).toBeTruthy();
+  expect(screen.getByText(/Windows EXE 和主机 ELF 没有下载校验/)).toBeTruthy();
+  expect(screen.getByText(/本次 Python 发布文件只提示主 DNS/)).toBeTruthy();
+  const next = screen.getByRole('link', { name: '继续阅读：离线游玩草稿 →' });
+  next.focus();
+  await user.keyboard('{Enter}');
+  const game = screen.getByRole('link', {
+    name: '优先游戏：《战神：诸神黄昏》PS5 版',
+  });
+  expect(game.getAttribute('href')).toBe('#ragnarok-first-game');
+  expect(document.activeElement).toBe(
+    screen.getByRole('heading', {
+      level: 1,
+      name: '管理器之后：离线游戏运行流程草稿',
+    }),
+  );
+  expect(
+    screen.getByText(/不把 12.40.00.09 转为正式查询的 12.40/),
+  ).toBeTruthy();
+  expect(screen.getByText(/DLC 都完整安装后/)).toBeTruthy();
+  expect(screen.getAllByText('社区报告').length).toBeGreaterThan(0);
+  expect(screen.queryByRole('article')?.querySelector('button')).toBeNull();
+});
