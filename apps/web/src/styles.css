@@ -1613,3 +1613,88 @@ dt {
   font-size: 13px;
   line-height: 1.8;
 }
+
+.guide-navigation {
+  display: block;
+  margin: 26px 0;
+  padding: 20px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.guide-navigation p {
+  margin: 0 0 12px;
+  font-weight: 700;
+}
+.guide-navigation ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 12px;
+  padding: 0;
+  list-style: none;
+}
+.guide-navigation a {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-height: 46px;
+  padding: 10px 12px;
+  color: var(--ink);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: 14px;
+}
+.guide-navigation a[aria-current='step'] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  font-weight: 700;
+}
+.guide-navigation a span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.guide-navigation small,
+.guide-next p {
+  color: var(--muted);
+  font-size: 13px;
+}
+.guide-next {
+  margin: 28px 0;
+}
+@media (max-width: 740px) {
+  .guide-navigation ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .guide-navigation a {
+    padding: 10px;
+    gap: 8px;
+  }
+}
+
+.guide-snippet {
+  margin: 24px 0;
+}
+.guide-snippet figcaption {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+.guide-snippet pre {
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface-soft);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 741px) {
+  .guide-navigation ol {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}

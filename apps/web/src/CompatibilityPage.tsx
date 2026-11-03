@@ -8,6 +8,7 @@ import { Legend } from '@/components/status';
 import { ModelProfile } from '@/components/model-profile';
 import { RelatedKnowledge } from './KnowledgePage';
 import { CompatibilityResults } from '@/components/compatibility-results';
+import { GuideNavigation, GuideNext } from './components/guide-navigation';
 export function CompatibilityPage({
   data = dataset,
   mode = 'published',
@@ -54,6 +55,7 @@ export function CompatibilityPage({
         了解你的主机兼容性<span>。</span>
       </h1>
       <p className="page-intro">按型号与固件精确查询。没有证据，就保留未知。</p>
+      {mode === 'published' && <GuideNavigation current="query" />}
       <div className="notice">
         <ShieldCheck size={20} />
         <div>
@@ -158,6 +160,7 @@ export function CompatibilityPage({
           )}
         </div>
       </div>
+      {mode === 'published' && <GuideNext current="query" />}
       <div className="section-heading">
         <h2>如何理解查询状态</h2>
       </div>

@@ -112,3 +112,37 @@ it('requires original URLs for project and community sources and preserves revis
     ).toBe(false);
   }
 });
+
+it('validates optional command snippets as content without requiring them on other articles', () => {
+  const data = fixture();
+  const withSnippet = (snippet: unknown) => ({
+    articles: [
+      {
+        ...data.articles[0],
+        sections: [{ ...data.articles[0].sections[0], snippet }],
+      },
+    ],
+  });
+  const snippet = {
+    label: '测试文本',
+    language: 'shell',
+    code: 'echo fixture',
+  };
+  expect(knowledgeBaseSchema.safeParse(data).success).toBe(true);
+  expect(knowledgeBaseSchema.safeParse(withSnippet(snippet)).success).toBe(
+    true,
+  );
+  expect(
+    knowledgeBaseSchema.safeParse(withSnippet({ ...snippet, code: '' }))
+      .success,
+  ).toBe(false);
+  expect(
+    knowledgeBaseSchema.safeParse(withSnippet({ ...snippet, label: ' ' }))
+      .success,
+  ).toBe(false);
+  expect(
+    knowledgeBaseSchema.safeParse(
+      withSnippet({ ...snippet, language: 'javascript' }),
+    ).success,
+  ).toBe(false);
+});

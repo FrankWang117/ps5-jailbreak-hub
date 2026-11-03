@@ -38,6 +38,13 @@ export const knowledgeBaseSchema = z
                 id: slug,
                 title: text,
                 paragraphs: z.array(text).min(1),
+                snippet: z
+                  .object({
+                    label: text,
+                    language: z.enum(['shell', 'powershell', 'text']),
+                    code: text,
+                  })
+                  .optional(),
                 diagram: z
                   .object({
                     label: text,

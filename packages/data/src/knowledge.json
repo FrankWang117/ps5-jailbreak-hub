@@ -161,6 +161,7 @@
         }
       ],
       "relatedSlugs": [
+        "browser-entry-preparation",
         "firmware-1240-routes",
         "model-and-firmware",
         "reading-evidence",
@@ -171,7 +172,7 @@
       "slug": "firmware-1240-routes",
       "title": "假设是 12.40：先看适用路线与准备条件",
       "summary": "核对浏览器入口、Y2JB 备份路线与后续工具的不同条件。仅为公开资料研究，CFI-2200B01 实际版本与游戏运行结果仍未知。",
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-03",
       "sections": [
         {
           "id": "research-boundary",
@@ -204,7 +205,7 @@
           "title": "路线一 · 浏览器入口：优先核查，先解决如何进入",
           "paragraphs": [
             "Relapse 的 README 声明固件范围为 7.00–13.60，并描述浏览器与内核两个阶段。它提醒可能要多次尝试，且主机可能卡住或崩溃。这里只转述项目范围，没有据此给 CFI-2200B01＋12.40 建立支持结论。",
-            "浏览器入口可以作为优先研究方向，因为它与恢复 Y2JB 备份是不同入口。还需核查：该型号怎样实际进入浏览器页面、首次设置是否受账号或网络限制、所用加载环境和后续组件是否匹配，以及本地托管条件。这些缺口尚未闭合，不能写成“一打开网页就能玩”。",
+            "浏览器入口与恢复 Y2JB 备份是不同入口。后续浏览器准备篇已核对官方用户指南菜单，以及 WebKit Autoloader v0.6.2 的首次本地入口与安装后启动条件；仍需补齐 CFI-2200B01 实际进入的证据、首次设置限制和组件配合，不能写成“一打开网页就能玩”。",
             "与本型号相关的 issue 后续评论提到 slopkit。本站读到的 slopkit README 只有署名与图片，未给出足以采用的型号/版本复现说明；不能把评论当成完整教程，也不能把 slopkit 与 Relapse 视为同一版本或直接替换。"
           ]
         },
@@ -362,9 +363,356 @@
         }
       ],
       "relatedSlugs": [
+        "webkit-first-install",
+        "browser-entry-preparation",
         "first-boot",
         "reading-evidence",
         "risks-and-misconceptions"
+      ]
+    },
+    {
+      "slug": "browser-entry-preparation",
+      "title": "浏览器入口准备：先分清首次安装与日常启动",
+      "summary": "以 WebKit Autoloader v0.6.2 的项目说明为快照，读懂用户指南入口、同网电脑、缓存和工具配合。资料整理，待实机验证。",
+      "updatedAt": "2026-11-03",
+      "sections": [
+        {
+          "id": "scope",
+          "title": "这篇帮你确认准备条件",
+          "paragraphs": [
+            "本篇承接 12.40 假设路线说明，解释浏览器入口怎样衔接后续工具。你现在可以只阅读和记录，不必下载、运行工具或修改主机。CFI-2200B01 实际版本、初始化限制及实机结果仍未知。",
+            "研究快照是 itsPLK 的 WebKit Autoloader v0.6.2，不是“所有浏览器教程通用”。该项目声明固件范围不能直接变成本型号支持结论；它与本站的独立 Host 是不同项目，本站 Host 仍只提供信息。"
+          ]
+        },
+        {
+          "id": "user-guide",
+          "title": "01 · 用户指南在哪里，打开后应该看到什么",
+          "paragraphs": [
+            "PlayStation 日本官方给出的菜单路径是「設定 → ユーザーズガイド、健康のためのご注意、その他の情報 → ユーザーズガイド」。中文可理解为“设定 → 用户指南、健康注意事项及其他信息 → 用户指南”。菜单布局以实际系统为准，尚未验证 CFI-2200B01 在假设版本上的画面。",
+            "正常情况下这里打开的是官方帮助内容。项目所述的自托管路线需要额外的本地入口条件，不能把“打开用户指南”写成“自动进入破解页面”。如果看到普通帮助页，只能说明尚未确认预期入口，不能据此判断设备不支持。"
+          ],
+          "diagram": {
+            "label": "日语用户指南菜单路径",
+            "steps": [
+              "設定 / 设定",
+              "ユーザーズガイド、健康のためのご注意、その他の情報",
+              "ユーザーズガイド / 用户指南"
+            ],
+            "caption": "本站依据 PlayStation 日本支持说明绘制，非实机截图；仅说明官方菜单位置，不代表第三方入口已配置。"
+          }
+        },
+        {
+          "id": "first-install",
+          "title": "02 · 第一次准备：先核对电脑端与主机端的关系",
+          "paragraphs": [
+            "v0.6.2 README 对尚未建立运行环境的设备，描述了由同网电脑提供首次本地安装入口，再通过用户指南访问的路线。其前置条件包括同网电脑、项目相应的电脑端 host、主机 DNS 指向这台电脑；这描述的是项目方案，不表示本站已经运行了这些服务。",
+            "准备时应记录电脑系统、所用发布号、电脑在局域网中的地址、两台设备是否能相互访问，以及该项目要求的服务条件。只把一个地址填入 DNS 并不会自动产生服务；外网 DNS、电脑地址和主机自身地址也不能互换。访客网络或设备隔离是否存在，属于需要检查的网络条件。",
+            "本阶段只形成准备记录，不提供固定公网 DNS、不替你改网络、不启动第三方服务。首次设置若要求联网、账号或系统更新，仍按首次开机指南的停止条件处理；不要为到达入口而先升级。"
+          ]
+        },
+        {
+          "id": "cached-startup",
+          "title": "03 · 安装完成后：缓存、快捷方式和网络各管什么",
+          "paragraphs": [
+            "项目 README 将首次安装完成后创建主界面快捷方式、缓存页面及后续启动分开说明。“出现快捷方式”不等于缓存完整，“不访问互联网”也不等于本地网络接口可以断开。",
+            "v0.6.2 架构说明指出：Relapse 需要已连接的本地网络接口，但不要求互联网访问。是否能从该型号的缓存快捷方式重新建立运行环境仍待验证；不能据此承诺重启后永久保持权限或所有流程全程断网。",
+            "如果后续依赖缓存启动，就不要把清空浏览器数据当作每次失败的默认动作；项目也有缓存修复流程，具体是否适用必须核对当前状态。缓存失败时先记录版本、进度、错误文字及出现时机，不以重装系统替代排查。"
+          ]
+        },
+        {
+          "id": "tool-roles",
+          "title": "04 · 入口、管理器和运行组件不是同一件工具",
+          "paragraphs": [
+            "WebKit Autoloader 负责入口与自动加载衔接；Payload Manager 用于管理、导入和安排组件。它们都不是具体游戏的运行验证。v0.6.2 发布说明列出捆绑的 unified-autoloader v0.1.6、Payload Manager v0.6.3 与 elfldr v0.27，不能拿其他教程的任意旧版本代替这份清单。",
+            "运行组件也要按角色记录：kstuff-lite、etaHEN 与挂载工具有各自依赖。若研究使用 etaHEN 2.5B Unified r1 非官方移植，其发布说明已经包含 kstuff-lite v1.11；再加载另一份可能违反项目要求。不要把“管理器内能看到文件”当作它们能一起运行。",
+            "移植仓库的 13.60 组件兼容文档限定了特定构建、启动准备信号与待验证项目。它可以提醒我们要核对组合，却不能提供 12.40 的通用加载顺序；本篇不拼接出一条未经验证的工具执行链。"
+          ]
+        },
+        {
+          "id": "configuration",
+          "title": "05 · 管理器没出现、电脑连不上，先看配置约定",
+          "paragraphs": [
+            "v0.6.2 README 说明：发现手动 autoload.txt 时，不会默认自动启动 Payload Manager；管理器自己的自动加载功能又是另一套机制。因此“管理器没弹出”需要先核对是否存在手动配置，不能直接认定入口失败。",
+            "项目还说明默认的自定义 ELF loader 只接受主机本地连接。因此同网电脑无法直接连接该默认加载器，不足以证明加载器没运行；不要为此默认更换加载器或开放端口。先核对所用版本和预期通信方式。",
+            "nanoDNS 是另一种需要先运行的 DNS 代理组件，其 README 说明会处理本地覆盖并将其他请求转发给上游，也有例外规则。它不是新机首次入口的当然前提，更不等于“所有互联网访问都已阻断”。本阶段不需要配置它。"
+          ]
+        },
+        {
+          "id": "symptoms",
+          "title": "06 · 用现象定位，先保留信息",
+          "paragraphs": [
+            "仍是官方帮助页：记录项目版本、预期入口和所用网络，先核对是否确有相应本地服务。尚未进入主界面：回到首次开机指南，保留初始化画面。缓存进度失败：记录失败阶段，不盲目清除全部浏览器数据。",
+            "管理器没有自动出现：先核对手动配置与管理器自带自动加载的区别。电脑无法连接加载器：先核对是否属于只接受本机连接的默认版本。工具已启动却游戏不能运行：回到具体游戏、补丁、格式和组件条件，不能继续叠加载荷来试探。",
+            "出现要求恢复、格式化、清空数据、系统更新或你无法解释的确认框时，停止继续操作并保留提示；如果已进入系统安装过程，不断电、不强制关机。这里只提供排查方向，没有对本机故障作诊断。"
+          ]
+        },
+        {
+          "id": "preparation-record",
+          "title": "完成本篇：留下一张准备记录",
+          "paragraphs": [
+            "可在自己的备忘录填写：型号与完整版本＝未知/原文；路线快照＝____；电脑系统与局域网条件＝____；首次入口所需服务＝____；预期是首次安装还是缓存启动＝____；管理方式＝手动配置/管理器/未知；组件版本与是否重复＝____；目标游戏信息＝____。现在仍可全部只做资料记录，不必执行。",
+            "下一步可操作教程需要补齐：同型号准确系统下的入口到达证据、选定组合的可复核运行说明、每步预期与失败恢复，以及具体游戏离线启动和重启表现。本篇准备条件已整理，不代表上述执行教程或实机验收完成。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "official",
+          "title": "PlayStation 日本：PS5 用户指南入口",
+          "publisher": "PlayStation 支持服务（日本）",
+          "url": "https://www.playstation.com/ja-jp/support/hardware/ps-accessories/",
+          "checkedAt": "2026-11-02",
+          "revision": "2026-11-02 阅读，“マニュアルと保証 / ユーザーズガイド”段落",
+          "scope": "只支持官方日语菜单路径，不证明 DNS 重定向、第三方入口或本型号破解兼容性。"
+        },
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2：README",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/blob/v0.6.2/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "固定 tag v0.6.2",
+          "scope": "支持首次本地安装/安装后启动的区别、手动配置与管理器的关系、默认加载器仅本地连接；不证明本型号实测。"
+        },
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2：架构说明",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/blob/v0.6.2/ARCHITECTURE.md",
+          "checkedAt": "2026-11-02",
+          "revision": "固定 tag v0.6.2",
+          "scope": "仅采用缓存完整性与 Relapse 需要已连接本地接口、不要求互联网的条件，不把其他链条件移植到本型号。"
+        },
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2 发布说明",
+          "publisher": "itsPLK",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/releases/tag/v0.6.2",
+          "checkedAt": "2026-11-02",
+          "revision": "发布于 2026-10-28",
+          "scope": "支持捆绑组件版本清单；只作研究快照，不以最新标签或文件名代替具体功能验证。"
+        },
+        {
+          "kind": "project",
+          "title": "etaHEN 2.5B Unified r1 发布说明（非官方移植）",
+          "publisher": "GronedWaffel",
+          "url": "https://github.com/GronedWaffel/etahen-11.00-13.60/releases/tag/v2.5B-unified.1",
+          "checkedAt": "2026-11-02",
+          "revision": "固定 tag v2.5B-unified.1",
+          "scope": "仅采用捆绑 kstuff-lite v1.11 与禁止重复加载条件；不建立 12.40 加载顺序。"
+        },
+        {
+          "kind": "project",
+          "title": "13.60 kstuff / etaHEN / ShadowMount 组件兼容说明",
+          "publisher": "GronedWaffel",
+          "url": "https://github.com/GronedWaffel/etahen-11.00-13.60/blob/main/KSTUFF-SHADOWMOUNT-COMPATIBILITY.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main，2026-11-02 阅读",
+          "scope": "限定特定 13.60 构建的兼容性调查；只用于说明组合需核对，不能外推到 12.40 或给出通用执行链。"
+        },
+        {
+          "kind": "project",
+          "title": "nanoDNS：README",
+          "publisher": "drakmor 与贡献者",
+          "url": "https://github.com/drakmor/nanoDNS/blob/main/README.md",
+          "checkedAt": "2026-11-02",
+          "revision": "main，2026-11-02 阅读",
+          "scope": "仅采用 DNS 代理、上游转发与例外规则的角色说明；不转录配置值或提供全部联网阻断保证。"
+        },
+        {
+          "kind": "editorial",
+          "title": "本站准备条件与排查顺序",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-02",
+          "revision": "2026-11-02 复核",
+          "scope": "准备记录、现象分类与停止条件为本站分析。未运行第三方程序、未验证 PS5，未提供固定公网 DNS、执行文件或实际网络修改。"
+        }
+      ],
+      "relatedSlugs": [
+        "webkit-first-install",
+        "first-boot",
+        "firmware-1240-routes",
+        "risks-and-misconceptions"
+      ]
+    },
+    {
+      "slug": "webkit-first-install",
+      "title": "首次安装草稿：从电脑本地入口到管理器启动",
+      "summary": "按 WebKit Autoloader v0.6.2 一手资料整理，以 macOS 电脑为主线。含文件核对、分阶段成功标志、失败处理和重启说明；待实机验证。",
+      "updatedAt": "2026-11-03",
+      "sections": [
+        {
+          "id": "draft-boundary",
+          "title": "先确认：这是待实机验证的安装草稿",
+          "paragraphs": [
+            "本文的终点是进入 Payload Manager，不包括安装游戏、运行游戏或配置游戏运行组件。你现在可以只阅读，不必照着执行；CFI-2200B01 尚未开机，实际版本未知，12.40 仍是研究假设。",
+            "下列步骤只适用于你已独立确认设备条件并决定研究该项目的情况。它们来自固定发布说明、README 和其依赖的电脑端模板源码；本站未运行第三方程序、未校验下载后的发布文件、未验证此型号的安装流程。目录中存在步骤不代表正式查询已经支持。",
+            "若还没确认真实完整版本、无法进入主界面，或初始化要求更新/登录才能继续，先回到首次开机指南，停下记录画面；不要用假设版本或别人的型号填补前提。"
+          ]
+        },
+        {
+          "id": "choose-files",
+          "title": "01 · 从同一个发布页选择电脑端文件",
+          "paragraphs": [
+            "打开文末的 WebKit Autoloader v0.6.2 发布说明。macOS / Linux / WSL 对应文件名是 webkit-autoloader-host_v0.6.2.py，Windows 对应 webkit-autoloader-host_v0.6.2.exe；本篇以 macOS 的 Python 文件为主线。Windows 请对照该发布的 host 文件与运行说明，不把 macOS 命令直接复制过去。",
+            "另一个 webkit-autoloader-installer_v0.6.2.elf 是已有加载环境时的主机端安装文件，不是未建立环境的新机要在电脑上双击的程序。不要把 Remote Loader 同名工具或不同版本文件替代本篇的 Autoloader host。",
+            "把选择的文件放在一个能找到的目录，并在这个目录打开终端。先检查 Python 3 是否存在，再对下载文件计算 SHA-256。发布元数据记录的 Python 文件摘要为 d343b0c8fdb4f3485f7704b05468f53d26559ae6bce8d6877ad656288681087c；这是来源记录，不是本站已下载验证的结果。计算值不一致或文件名不同，停止，不运行。"
+          ],
+          "snippet": {
+            "label": "macOS：只检查 Python 与文件摘要",
+            "language": "shell",
+            "code": "python3 --version\nshasum -a 256 ./webkit-autoloader-host_v0.6.2.py"
+          }
+        },
+        {
+          "id": "start-pc-host",
+          "title": "02 · 在电脑端启动本地入口，先确认两个服务",
+          "paragraphs": [
+            "准备能互相访问的局域网电脑与 PS5，记录电脑当前局域网 IPv4 地址和主机原有网络/DNS设置。以下命令仅供阅读；决定执行前应确认文件来源与摘要，了解它会在电脑启动 DNS/HTTPS 服务。不要配置路由器公网端口转发。",
+            "在文件所在目录使用下面的 macOS 命令。sudo 会要求电脑管理员权限；终端输入密码时通常不回显字符。若无法理解授权范围、系统拦截文件或出现证书信任提示，先停下核对，不关闭系统防护或导入未知根证书。",
+            "该发布依赖的 Remote Loader v0.1.2 host 模板默认使用 UDP 53 和 TCP 443；预期日志分别报告 DNS 和 HTTPS 已启动，并显示应填给主机的电脑地址。若是权限不足、端口占用或地址选错，先解决电脑端问题，不继续改主机设置；不要任意结束系统进程。"
+          ],
+          "snippet": {
+            "label": "macOS：启动已核对的 v0.6.2 电脑端 host（本文不执行）",
+            "language": "shell",
+            "code": "sudo python3 ./webkit-autoloader-host_v0.6.2.py"
+          }
+        },
+        {
+          "id": "connect-console",
+          "title": "03 · 记录网络后，再对照项目的 DNS 入口",
+          "paragraphs": [
+            "官方日语网络入口为「設定 → ネットワーク → 設定 → インターネット接続を設定する」。项目 README 要求把 PS5 使用的 DNS 指向提供服务的电脑；填入的是该电脑在本局域网的地址，不是主机地址、127.0.0.1、网站预览地址或网上抄来的公网 DNS。",
+            "先保留原来的自动/手动模式及原值，再按该版本 host 的提示核对主 DNS。源码启动提示没有给出通用的次 DNS 填法，本文不补造；如果你的设置画面要求额外字段、无法保存或与说明不一致，记录画面并停止，不临时添加公网后备 DNS。",
+            "此时预期是主机与电脑可在本地网络通信。项目 host 对非目标域名返回失败响应，因此互联网或 PSN 检测失败不等于本地入口不可用；同样，DNS 指向正确也不等于后续安装已成功。遇到系统升级提示不要为连接成功而确认升级。"
+          ]
+        },
+        {
+          "id": "open-entry",
+          "title": "04 · 打开用户指南，检查页面是否到达",
+          "paragraphs": [
+            "按「設定 → ユーザーズガイド、健康のためのご注意、その他の情報 → ユーザーズガイド」进入。这里原本是官方帮助入口；只有前面的本地服务和主机网络条件满足时，项目描述的页面才可能到达。",
+            "对照电脑日志：没有任何请求，先核对局域网地址和网络隔离；出现 TLS 握手失败，说明连接到了服务但会话未成功；出现文档已送达，只能证明入口页面送达，不能算缓存、安装或管理器成功。日志用语来自依赖源码，实际发布文件表现仍待验证。",
+            "仍是官方帮助页、空白页或安全警告时，不盲按确认、不绕过证书警告、不反复叠加执行工具。记录页面、host 版本及最后日志，再回到浏览器准备篇排查。"
+          ],
+          "diagram": {
+            "label": "分阶段检查安装进度",
+            "steps": [
+              "电脑：DNS / HTTPS 服务启动",
+              "主机：本地入口页面到达",
+              "安装页：缓存完整并报告安装完成",
+              "重启后：从快捷方式进入管理器"
+            ],
+            "caption": "本站根据项目资料绘制的检查点示意，非实机截图；每个检查点都需独立确认。"
+          }
+        },
+        {
+          "id": "cache-install",
+          "title": "05 · 缓存与安装：等待完成标志，再考虑重启",
+          "paragraphs": [
+            "项目架构说明安装流程可能出现 Poops / Relapse 选择。本篇研究 Relapse 分支；真实版本必须先核对该发布的明确条件，不支持提示、选项不符或无法确定分支时停下，不通过更新版本或切换另一条链来试探。",
+            "选择确认后，观察缓存进度和安装结果。源码说明会检查完整标记，并在安装成功后记录选择、创建主界面快捷方式。只有选择过分支、进度条走动或看到某个图标，都不足以判定安装完整。保留最终结果文字与错误信息。",
+            "缓存或安装失败时先不重启、不清除全部浏览器数据，也不执行另一份 installer。项目有缓存修复机制，但其清理范围及本型号适用性仍待核对，本文不将清理作为默认下一步。"
+          ]
+        },
+        {
+          "id": "restart-manager",
+          "title": "06 · 安装完成后重启，再检查管理器",
+          "paragraphs": [
+            "项目 README 要求首次安装完成后正常重启一次，再从主界面启动 WebKit Autoloader。只有在安装确已完成、没有正在写入系统更新时才安排重启；开机后的运行环境仍需重新建立，不能把快捷方式理解为永久获得权限。",
+            "本篇的默认管理器路线要求没有被选中的手动 autoload.txt。项目规定找到这种配置时不会默认自动启动 Payload Manager；若出现自定义加载列表，不要继续添加未知文件或删除现有配置，先核对它的来源和用途。",
+            "对照发布清单，v0.6.2 捆绑 Payload Manager v0.6.3。预期是能打开管理器界面，而不只是看到主界面图标或进程名称。默认加载器只接受主机本地连接，电脑连不上不能直接当作管理器未启动。Relapse 后续启动仍需要连接本地网络接口，不要求互联网访问。"
+          ]
+        },
+        {
+          "id": "finish-and-restore",
+          "title": "07 · 到管理器为止，保留记录并结束电脑服务",
+          "paragraphs": [
+            "记录主机完整版本、host 文件摘要、页面/缓存/安装各阶段结果、重启后界面和管理器版本。只到此为止，不在本篇下载或运行 kstuff、etaHEN、挂载器及游戏文件。管理器打开不代表具体游戏能离线运行。",
+            "确认不再使用电脑端入口后，在它所在终端用 Control-C 停止服务，并核对已结束。主机 DNS 按前面保留的原模式/值决定恢复；保留指向已关闭电脑的设置可能使解析失效，恢复自动又可能重新接触外部服务，不要把二者当作更新阻断保证。需要继续保持版本现状时，先确认网络计划再改变设置。",
+            "若无法完成任一检查点，保留最后已确认阶段和具体错误，不把卡住、重启或图标出现写成成功。本文没有完成 CFI-2200B01＋12.40 的实机验证；接下来仍需核对具体运行组件与游戏条件，不能套用其他固件的组合。"
+          ]
+        }
+      ],
+      "sources": [
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2 发布说明与资源元数据",
+          "publisher": "itsPLK",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/releases/tag/v0.6.2",
+          "checkedAt": "2026-11-03",
+          "revision": "tag v0.6.2；发布于 2026-10-28；2026-11-03 复核",
+          "scope": "支持平台文件选择、捆绑版本及 GitHub 资源摘要记录；未下载发布文件或验证其运行行为。"
+        },
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2：安装与管理器约定",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/blob/v0.6.2/README.md",
+          "checkedAt": "2026-11-03",
+          "revision": "固定 tag v0.6.2；2026-11-03 复核",
+          "scope": "支持同网电脑首次入口、主机 DNS、用户指南、完成后重启、手动配置与默认管理器的条件。"
+        },
+        {
+          "kind": "project",
+          "title": "WebKit Autoloader v0.6.2：缓存与安装状态",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-autoloader/blob/v0.6.2/ARCHITECTURE.md",
+          "checkedAt": "2026-11-03",
+          "revision": "固定 tag v0.6.2；2026-11-03 复核",
+          "scope": "支持缓存完整标记、安装完成与选择状态的区别、Relapse 本地网络要求；不是本型号复现记录。"
+        },
+        {
+          "kind": "project",
+          "title": "Remote Loader v0.1.2：电脑端 host 模板",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-remote-loader/blob/v0.1.2/host.py",
+          "checkedAt": "2026-11-03",
+          "revision": "固定 tag v0.1.2；源码阅读于 2026-11-03",
+          "scope": "用于推导默认端口、权限提示、连接/文档日志、Control-C 退出及 DNS 响应范围；发布资源实际行为未运行核验，次 DNS 值不补造。"
+        },
+        {
+          "kind": "project",
+          "title": "Remote Loader v0.1.2：单文件 host 构建说明",
+          "publisher": "itsPLK 与贡献者",
+          "url": "https://github.com/itsPLK/ps5-webkit-remote-loader/blob/v0.1.2/tools/build_host.py",
+          "checkedAt": "2026-11-03",
+          "revision": "固定 tag v0.1.2；源码阅读于 2026-11-03",
+          "scope": "支持 host 模板打包为单文件的来源关系；仅阅读构建源码，未构建或执行，也未逐字节审计发布资源。"
+        },
+        {
+          "kind": "official",
+          "title": "PlayStation 日本：网络连接与详细设置",
+          "publisher": "PlayStation 支持服务（日本）",
+          "url": "https://www.playstation.com/ja-jp/support/connectivity/internet-connect-playstation/",
+          "checkedAt": "2026-11-03",
+          "revision": "2026-11-03 阅读",
+          "scope": "仅支持官方网络菜单与 DNS 设置类别，不作为第三方 DNS 配置推荐或破解证据。"
+        },
+        {
+          "kind": "official",
+          "title": "PlayStation 日本：用户指南入口",
+          "publisher": "PlayStation 支持服务（日本）",
+          "url": "https://www.playstation.com/ja-jp/support/hardware/ps-accessories/",
+          "checkedAt": "2026-11-03",
+          "revision": "2026-11-03 复核，用户指南段落",
+          "scope": "仅支持官方日语菜单位置，不证明重定向已成功或该型号可安装。"
+        },
+        {
+          "kind": "editorial",
+          "title": "本站安装草稿与停止条件",
+          "publisher": "PS5 Jailbreak Hub 编辑说明",
+          "url": null,
+          "checkedAt": "2026-11-03",
+          "revision": "2026-11-03",
+          "scope": "分阶段检查、记录与停止条件为本站编排；命令仅作为文章文本展示，网站不执行命令、改 DNS 或访问主机。发布文件校验和实机验收均未完成。"
+        }
+      ],
+      "relatedSlugs": [
+        "browser-entry-preparation",
+        "firmware-1240-routes",
+        "first-boot"
       ]
     },
     {

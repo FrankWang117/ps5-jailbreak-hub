@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { ArrowRight, BookOpen } from 'lucide-react';
 import { knowledgeBase } from '@ps5/data';
+import { GuideNavigation, GuideNext } from './components/guide-navigation';
 
 const sourceLabels = {
   official: '官方资料',
@@ -39,6 +40,16 @@ export function KnowledgePage() {
   const { pathname, hash } = useLocation();
   const heading = useRef<HTMLHeadingElement>(null);
   const article = knowledgeBase.articles.find((item) => item.slug === slug);
+  const guideStep =
+    slug === 'first-boot'
+      ? 'first-boot'
+      : slug === 'firmware-1240-routes'
+        ? 'routes'
+        : slug === 'browser-entry-preparation'
+          ? 'preparation'
+          : slug === 'webkit-first-install'
+            ? 'installation'
+            : null;
   useEffect(() => {
     // 路由跳转带锚点时也把阅读位置与键盘焦点带到目标章节。
     if (hash) {
@@ -126,6 +137,7 @@ export function KnowledgePage() {
           <time dateTime={article.updatedAt}>{article.updatedAt}</time> ·
           来源适用范围见文末
         </p>
+        {guideStep && <GuideNavigation current={guideStep} />}
         <div className="reading-layout">
           <aside className="article-toc" aria-label="本文目录">
             <h2>本文目录</h2>
@@ -145,6 +157,14 @@ export function KnowledgePage() {
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
+                {section.snippet && (
+                  <figure className="guide-snippet">
+                    <figcaption>{section.snippet.label}</figcaption>
+                    <pre aria-label={section.snippet.label} tabIndex={0}>
+                      <code>{section.snippet.code}</code>
+                    </pre>
+                  </figure>
+                )}
                 {section.diagram && (
                   <figure
                     className="guide-diagram"
@@ -201,6 +221,7 @@ export function KnowledgePage() {
           </div>
         </div>
       </article>
+      {guideStep && <GuideNext current={guideStep} />}
       <RelatedKnowledge exclude={article.slug} />
       <Link className="text-link" to="/compatibility">
         {article.slug === 'first-boot'

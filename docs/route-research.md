@@ -40,3 +40,7 @@
 ## 网站与数据边界
 
 知识库来源增加“项目一手资料”和“社区报告”，与 Sony 官方资料、本站分析分开标记；项目与社区来源必须有 HTTP(S) 原文 URL，可选 revision 保存发布号或阅读快照。来源核对表示读过相应正文，不是核验某台主机可运行。所有内容集中在 packages/data/src/knowledge.json，不写入 published.json 的 evidence/compatibility，也不把文章分类映射为五种兼容性状态。
+
+## 后续 C1 / D1 补充
+
+已通过固定 tag v0.6.2 与 PlayStation 日本官方正文补充通用用户指南到达方式、首次本地安装/缓存启动条件及工具角色说明，见 [browser-preparation-review.md](./browser-preparation-review.md)。B 中关于“浏览器入口”的通用材料缺口已有补充，但同型号具体进入过程、完整执行链及游戏结果仍未得到验证；不把新增文章或阅读导航采纳为兼容性证据。
