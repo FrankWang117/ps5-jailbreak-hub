@@ -173,3 +173,27 @@ bash scripts/prod-update.sh --rollback 实际完整发布编号
 ## 本地 main 提交交接
 
 用户已授权将子目录适配、Docker 自动发布、Nginx 模板及相关文档提交到本地 main；本次不推送，不触发 Actions。首次远端运行前仍需确认专用目录、克隆源码、创建 `.env.production` 与 PS5 仓库 Secrets。实际提交号以 Git 日志为准。
+
+## 首次 Actions 失败定位（2026-11-05）
+
+用户已推送 89cc82b，代理通过 GitHub 连接只读核查 [第 1 次运行](https://github.com/FrankWang117/ps5-jailbreak-hub/actions/runs/41986050476)：冻结安装、pnpm check（105 项测试）与构建通过；SSH 步骤报 `SSH_HOST: 缺少 SSH_HOST`。该步骤的 SSH_HOST、SSH_USER、SSH_PRIVATE_KEY、SSH_KNOWN_HOSTS 均为空，尚未建立服务器连接，不是 Nginx/Docker 构建失败。
+
+需由用户在 PS5 仓库 Actions Repository Secrets 配置这些名称；daily-patch 仓库 Secrets 不自动共享。若已使用 Environment Secrets，本工作流尚未绑定 environment，因此需要改为 Repository Secrets 或明确绑定已有环境。GitHub 已保存私钥不能从 Secrets 页面读回，需从用户持有的原始部署私钥录入；不要复制服务器的 host 私钥充当登录私钥，不把任何私钥发到聊天。配置后仍先确认服务端源码克隆和 .env.production，才能重跑任务。此次只更新交接文档，没有修改发布代码或再次运行应用检查。
+
+## SSH 配置完成后的拉取中断（2026-11-05）
+
+用户回传：服务端 HEAD 为 89cc82b、main 工作区干净，`.env.production` 为 deploy:deploy 600，静态目录可写。配置 Secrets 并重跑后，SSH 已成功执行远端更新脚本，但 git fetch 报 `GnuTLS recv error (-110): The TLS connection was non-properly terminated`，退出 128。这表示本次 Git HTTPS 连接异常结束，日志不足以确定代理、链路或对端的具体原因；不是凭据缺失或 Nginx 检查失败。此时尚未构建/切换 PS5 静态页面。
+
+更新脚本现补有限重试：fetch 最多 3 次，失败间隔 2/4 秒，第三次仍失败则保留失败退出码、释放更新锁，不使用旧远端引用发布。测试模拟前两次连接中断和持续失败，验证成功才快进及启动发布。没有关闭 TLS 校验或改全局 Git 网络配置。当前修复未提交/推送，服务端现有 89cc82b 不含该逻辑；首次拉取新脚本仍需要 GitHub 网络恢复，不能把本地修改等同线上修复。
+
+现有任务可先人工重跑一次；若仍失败，在 ubuntu 终端用以下只读命令核查 deploy 到 GitHub 的连接，把错误输出回传（无须提供凭据）：
+
+```bash
+sudo -n -iu deploy bash -c 'cd /opt/apps/ps5-jailbreak-hub && GIT_TERMINAL_PROMPT=0 git ls-remote origin refs/heads/main'
+```
+
+不要启用 Git/Curl 的详细认证跟踪，也不要设置 sslVerify=false。持续失败时排查服务器到 GitHub 的网络，再处理下一阶段 Docker 镜像拉取；不能用重试保证持续故障恢复。
+
+## 用户确认首次发布成功（2026-11-05）
+
+用户在 Re-run all jobs 后回传成功并确认发布成功，发布版本为 89cc82b；这是用户提供的验收反馈，代理未直接操作服务器或独立复核成功日志。前面的失败记录保留为历史，不代表当前仍失败。原版本未含 fetch 重试改进；本次用户已授权将该改进及相关测试/文档提交到本地 main，不推送、不触发发布。推送后服务器首次执行更新入口仍是旧版，待一次成功快进后，后续运行才具有新重试逻辑。浏览器功能走查、官网与 daily-patch 回归、子域名 DNS/TLS 和真实 PS5 验收仍分别待确认。

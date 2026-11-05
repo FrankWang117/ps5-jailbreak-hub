@@ -219,3 +219,89 @@ test('Docker 发布隔离构建上下文，同用户挂载，不操作现有服�
     /docker.sock|privileged|compose|restart|systemctl/,
   );
 });
+test('拉取连接中断后重试；持续失败不更新提交、不启动发布且释放锁', async (t) => {
+  const temporary = await fs.mkdtemp(path.join(os.tmpdir(), 'ps5-fetch-test-'));
+  t.after(() => fs.rm(temporary, { recursive: true, force: true }));
+  const realGit = execFileSync('which', ['git'], { encoding: 'utf8' }).trim();
+  const git = (cwd, ...args) =>
+    execFileSync(realGit, args, {
+      cwd,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    }).trim();
+  const source = path.join(temporary, 'source');
+  const server = path.join(temporary, 'server');
+  const bin = path.join(temporary, 'bin');
+  const count = path.join(temporary, 'count');
+  const marker = path.join(temporary, 'worker');
+  await fs.mkdir(path.join(source, 'scripts'), { recursive: true });
+  await fs.mkdir(bin);
+  git(source, 'init', '-b', 'main');
+  git(source, 'config', 'user.email', 'test@example.com');
+  git(source, 'config', 'user.name', 'Test');
+  await fs.copyFile(
+    'scripts/prod-update.sh',
+    path.join(source, 'scripts/prod-update.sh'),
+  );
+  await fs.writeFile(
+    path.join(source, 'scripts/docker-deploy.sh'),
+    '#!/bin/bash\nprintf "%s" "$2" > "$TEST_WORKER"\n',
+  );
+  git(source, 'add', '.');
+  git(source, 'commit', '-m', 'initial');
+  git(temporary, 'clone', source, server);
+  const initial = git(server, 'rev-parse', 'HEAD');
+  await fs.writeFile(path.join(source, 'new-file'), 'new commit');
+  git(source, 'add', '.');
+  git(source, 'commit', '-m', 'next');
+  const latest = git(source, 'rev-parse', 'HEAD');
+  await fs.writeFile(
+    path.join(bin, 'git'),
+    `#!/bin/bash
+set -eu
+if [[ "$1" == fetch ]]; then
+  count=0
+  if [[ -f "$TEST_COUNT" ]]; then read -r count < "$TEST_COUNT"; fi
+  count=$((count + 1))
+  printf '%s\\n' "$count" > "$TEST_COUNT"
+  if [[ "$TEST_ALWAYS_FAIL" == 1 || "$count" -le 2 ]]; then echo 'GnuTLS recv error (-110)' >&2; exit 128; fi
+fi
+exec "$TEST_REAL_GIT" "$@"
+`,
+    { mode: 0o755 },
+  );
+  await fs.writeFile(path.join(bin, 'sleep'), '#!/bin/bash\nexit 0\n', {
+    mode: 0o755,
+  });
+  const env = {
+    ...process.env,
+    PATH: `${bin}:${process.env.PATH}`,
+    TEST_COUNT: count,
+    TEST_WORKER: marker,
+    TEST_REAL_GIT: realGit,
+    TEST_ALWAYS_FAIL: '1',
+  };
+  assert.throws(
+    () =>
+      execFileSync('bash', ['scripts/prod-update.sh', latest], {
+        cwd: server,
+        env,
+        stdio: 'pipe',
+      }),
+    /连续 3 次拉取失败/,
+  );
+  assert.equal(git(server, 'rev-parse', 'HEAD'), initial);
+  await assert.rejects(fs.stat(marker), { code: 'ENOENT' });
+  await assert.rejects(fs.stat(path.join(server, '.git/ps5-update.lock')), {
+    code: 'ENOENT',
+  });
+  await fs.unlink(count);
+  execFileSync('bash', ['scripts/prod-update.sh', latest], {
+    cwd: server,
+    env: { ...env, TEST_ALWAYS_FAIL: '0' },
+    stdio: 'pipe',
+  });
+  assert.equal((await fs.readFile(count, 'utf8')).trim(), '3');
+  assert.equal(git(server, 'rev-parse', 'HEAD'), latest);
+  assert.equal(await fs.readFile(marker, 'utf8'), latest);
+});

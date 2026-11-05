@@ -18,9 +18,9 @@ pnpm dev:web
 pnpm dev:host
 ```
 
-腾讯云目录准备见 [部署说明](./docs/tencent-cloud-web.md)：生产地址为 `https://voidbai.com/ps5/`，子域名跳转至此。根 `.env.local` 已配公开路径与地址（不提交），新环境从 `.env.example` 复制；`pnpm package:web` 生成带 `ps5/` 目录和摘要的静态包，`pnpm preview:web` 可本地预览。开发入口仍是 `/`。用户已回传 Nginx 添加片段后语法检查通过、reload 后 active；代理未连接服务器，PS5 线上发布、DNS 与证书尚待验收。
+腾讯云目录准备见 [部署说明](./docs/tencent-cloud-web.md)：生产地址为 `https://voidbai.com/ps5/`，子域名跳转至此。根 `.env.local` 已配公开路径与地址（不提交），新环境从 `.env.example` 复制；`pnpm package:web` 生成带 `ps5/` 目录和摘要的静态包，`pnpm preview:web` 可本地预览。开发入口仍是 `/`。用户已回传 Nginx 添加片段后语法检查通过、reload 后 active；代理未直接连接服务器；用户已确认原提交 89cc82b 的 Actions 重跑成功，浏览器功能走查和子域名 DNS/证书仍待验收。
 
-自动部署入口已提供：推送 main 后 Actions 执行全套检查，再通过已有 SSH Secrets 调用服务器 `scripts/prod-update.sh`，拉取对应提交、在临时 Docker 容器内构建并切换静态版本（宿主机无需 Node/pnpm）；线上检查失败恢复旧链接。首次需要配置专用目录、Nginx 和本仓库 Secrets，详见上方部署说明。本轮未推送或连接服务器，工作流尚未实跑。
+自动部署入口已提供：推送 main 后 Actions 执行全套检查，再通过已有 SSH Secrets 调用服务器 `scripts/prod-update.sh`，拉取对应提交、在临时 Docker 容器内构建并切换静态版本（宿主机无需 Node/pnpm）；线上检查失败恢复旧链接。首次需要配置专用目录、Nginx 和本仓库 Secrets，详见上方部署说明。用户已补齐 SSH Secrets、克隆源码并确认生产配置和目录可写；用户已确认 Actions 重跑发布成功（89cc82b）。更新脚本另补最多 3 次拉取重试，持续失败仍停止；本次提交该改进，尚未推送到线上。
 
 服务器用户分工沿用 daily-patch：`ubuntu` 管系统、Nginx 与证书，`deploy` 管应用拉取、构建和发布；发布脚本兼容直接登录 deploy 或从 ubuntu 切换到 deploy，具体权限需服务器确认。
 
