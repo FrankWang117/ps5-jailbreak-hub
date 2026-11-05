@@ -18,6 +18,12 @@ pnpm dev:web
 pnpm dev:host
 ```
 
+腾讯云目录准备见 [部署说明](./docs/tencent-cloud-web.md)：生产地址为 `https://voidbai.com/ps5/`，子域名跳转至此。根 `.env.local` 已配公开路径与地址（不提交），新环境从 `.env.example` 复制；`pnpm package:web` 生成带 `ps5/` 目录和摘要的静态包，`pnpm preview:web` 可本地预览。开发入口仍是 `/`。用户已回传 Nginx 添加片段后语法检查通过、reload 后 active；代理未连接服务器，PS5 线上发布、DNS 与证书尚待验收。
+
+自动部署入口已提供：推送 main 后 Actions 执行全套检查，再通过已有 SSH Secrets 调用服务器 `scripts/prod-update.sh`，拉取对应提交、在临时 Docker 容器内构建并切换静态版本（宿主机无需 Node/pnpm）；线上检查失败恢复旧链接。首次需要配置专用目录、Nginx 和本仓库 Secrets，详见上方部署说明。本轮未推送或连接服务器，工作流尚未实跑。
+
+服务器用户分工沿用 daily-patch：`ubuntu` 管系统、Nginx 与证书，`deploy` 管应用拉取、构建和发布；发布脚本兼容直接登录 deploy 或从 ubuntu 切换到 deploy，具体权限需服务器确认。
+
 以终端地址为准，Web 默认 `http://127.0.0.1:5173`，独立 Host 默认 `http://127.0.0.1:5174`。Host 当前只是信息页，无漏洞或 Payload 执行。局域网访问与部署需另行配置；PS5 实机未验收。
 
 ## 页面与阅读方式

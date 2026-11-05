@@ -1,0 +1,15 @@
+# 独立子域名跳转示例，启用前确认 DNS 和本子域名证书。
+# /about?x=1 -> https://voidbai.com/ps5/about?x=1
+server {
+    listen 80;
+    server_name ps5.voidbai.com;
+    return 308 https://voidbai.com/ps5$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name ps5.voidbai.com;
+    # 证书路径仅为 certbot 常见示例，必须按服务器实际证书调整。
+    ssl_certificate /etc/letsencrypt/live/ps5.voidbai.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/ps5.voidbai.com/privkey.pem;
+    return 308 https://voidbai.com/ps5$request_uri;
+}

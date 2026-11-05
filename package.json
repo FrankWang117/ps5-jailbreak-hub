@@ -12,11 +12,14 @@
     "dev:host": "pnpm --filter @ps5/host dev",
     "build": "turbo run build",
     "typecheck": "turbo run typecheck",
-    "test": "turbo run test",
+    "test": "turbo run test && pnpm test:deploy",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build"
+    "check": "pnpm lint && pnpm format:check && pnpm typecheck && pnpm test && pnpm build",
+    "preview:web": "pnpm --filter @ps5/web exec vite preview --host 127.0.0.1 --port 5188 --strictPort",
+    "package:web": "pnpm --filter @ps5/web build && node scripts/package-web.mjs",
+    "test:deploy": "bash -n scripts/ci-deploy.sh scripts/prod-update.sh scripts/docker-deploy.sh && node --test scripts/deploy-web.test.mjs"
   },
   "devDependencies": {
     "turbo": "^2.5.0",

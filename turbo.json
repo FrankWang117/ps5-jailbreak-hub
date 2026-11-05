@@ -24,5 +24,7 @@
       "dependsOn": ["^build"],
       "outputs": []
     }
-  }
+  },
+  "globalDependencies": [".env", ".env.*"],
+  "globalEnv": ["VITE_BASE_PATH", "VITE_SITE_URL"]
 }

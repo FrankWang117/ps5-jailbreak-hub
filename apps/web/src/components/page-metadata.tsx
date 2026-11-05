@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { knowledgeBase } from '@ps5/data';
+import { publicSiteRoot } from '@ps5/core';
+import { siteLocation } from '../lib/site-location';
 
 const brand = 'PS5 出厂版本参考 · Beta';
 const defaults =
@@ -35,6 +37,8 @@ export function PageMetadata() {
       '/prepare',
     ].includes(pathname);
   useEffect(() => {
+    const root = publicSiteRoot(siteLocation, window.location.origin);
+    const pageUrl = root + pathname.replace(/^\/+/, '');
     document.title = pathname === '/' ? brand : `${title} · ${brand}`;
     function meta(key: string, content: string, property = false) {
       const attribute = property ? 'property' : 'name';
@@ -53,13 +57,13 @@ export function PageMetadata() {
     meta('og:title', document.title, true);
     meta('og:description', description, true);
     meta('og:type', article ? 'article' : 'website', true);
-    meta('og:image', `${window.location.origin}/share-card.jpg`, true);
+    meta('og:image', `${root}share-card.jpg`, true);
     meta(
       'og:image:alt',
       'PS5 出厂版本参考：查前缀、看批次、确认实际版本',
       true,
     );
-    meta('og:url', `${window.location.origin}${pathname}`, true);
+    meta('og:url', pageUrl, true);
     meta('twitter:card', 'summary_large_image');
     let canonical = document.head.querySelector<HTMLLinkElement>(
       'link[rel="canonical"]',
@@ -71,7 +75,7 @@ export function PageMetadata() {
         canonical.rel = 'canonical';
         document.head.append(canonical);
       }
-      canonical.href = `${window.location.origin}${pathname}`;
+      canonical.href = pageUrl;
     }
   }, [pathname, title, description, noindex, article]);
   return null;

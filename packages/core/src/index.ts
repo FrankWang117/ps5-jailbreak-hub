@@ -774,3 +774,10 @@ export function queryFactoryReference(
     compatibility: 'unknown' as const,
   };
 }
+
+export {
+  siteLocationSchema,
+  parseSiteLocation,
+  publicSiteRoot,
+  type SiteLocation,
+} from './site-location';
