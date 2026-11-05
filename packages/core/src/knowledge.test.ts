@@ -146,3 +146,17 @@ it('validates optional command snippets as content without requiring them on oth
     ).success,
   ).toBe(false);
 });
+
+it('validates optional disclosure flags without changing existing articles', () => {
+  const data = fixture();
+  const withFlag = (collapsed: unknown) => ({
+    articles: [
+      {
+        ...data.articles[0],
+        sections: [{ ...data.articles[0].sections[0], collapsed }],
+      },
+    ],
+  });
+  expect(knowledgeBaseSchema.safeParse(withFlag(true)).success).toBe(true);
+  expect(knowledgeBaseSchema.safeParse(withFlag('hidden')).success).toBe(false);
+});

@@ -1,11 +1,11 @@
 import {
   queryCompatibility,
+  queryCompatibilityByModelCode,
   statusLabels,
   type Dataset,
   type Evidence,
 } from '@ps5/core';
 import { CircleHelp, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import { Status } from './status';
 function EvidenceDetails({
   data,
@@ -59,15 +59,20 @@ function EvidenceDetails({
 export function CompatibilityResults({
   data,
   modelId,
+  modelCode,
   firmware,
   mode,
 }: {
   data: Dataset;
   modelId: string;
+  modelCode?: string;
   firmware: string;
   mode: 'published' | 'demo';
 }) {
-  const result = queryCompatibility(data, modelId, firmware);
+  const result =
+    modelCode === undefined
+      ? queryCompatibility(data, modelId, firmware)
+      : queryCompatibilityByModelCode(data, modelCode, firmware);
   return (
     <>
       <div className="result-header">
@@ -76,7 +81,7 @@ export function CompatibilityResults({
         </div>
         <span className="small-tag">{result.records.length} 条方案记录</span>
       </div>
-      <h2>{data.models.find((x) => x.id === modelId)?.code}</h2>
+      <h2>{modelCode ?? data.models.find((x) => x.id === modelId)?.code}</h2>
       <p className="firmware-value">
         系统固件 <strong>{firmware}</strong>
       </p>
@@ -87,19 +92,7 @@ export function CompatibilityResults({
             <h3>兼容性未知</h3>
             <Status status="unknown" />
             <p>{result.reason}</p>
-            <p>无记录不等于“暂无公开方案”，也不代表该设备能够安装此版本。</p>
-            {mode === 'published' && (
-              <p>
-                先保留完整版本原文，再核对前置条件。
-                <Link
-                  className="text-link"
-                  to="/knowledge/browser-entry-preparation"
-                >
-                  了解浏览器入口的准备条件 →
-                </Link>
-                此说明不代表当前查询适用，不要为试探结果而更新系统或恢复备份。
-              </p>
-            )}
+            <p>无记录不等于“不支持”，也不能证明该型号能安装此版本。</p>
           </div>
         </div>
       ) : (

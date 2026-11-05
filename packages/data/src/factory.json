@@ -1,0 +1,682 @@
+{
+  "updatedAt": "2026-11-05",
+  "sources": [
+    {
+      "id": "psdevwiki-4813",
+      "title": "PS5 Developer Wiki：Serial Number guide（出厂批次表）",
+      "url": "https://www.psdevwiki.com/ps5/index.php?section=4&title=Serial_Number_guide",
+      "publisher": "PS5 Developer Wiki 社区贡献者",
+      "kind": "community",
+      "reviewed": true,
+      "checkedAt": "2026-11-05",
+      "revision": "所读页面快照 oldid=4813，编辑日期 2026-10-28；2026-11-05 逐项核查所收录 83 个批次及各章节字母替换范围，未合并其他修订",
+      "limitations": "社区贡献与部分推测组成的历史批次参考，不是 Sony 官方逐台查询。只参考原封新机，翻新、二手、更新过或包装与机身不一致的设备不能据此确定当前版本。未复现实物出厂版本，不作为破解可用性证据。"
+    }
+  ],
+  "records": [
+    {
+      "id": "batch-20-434",
+      "family": "CFI-20",
+      "prefixes": ["S01-F434", "S01-E434", "S01-M434"],
+      "period": "2023-04",
+      "versions": ["7.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-435",
+      "family": "CFI-20",
+      "prefixes": ["S01-F435", "S01-E435", "S01-M435"],
+      "period": "2023-05",
+      "versions": ["7.00", "7.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-436",
+      "family": "CFI-20",
+      "prefixes": ["S01-F436", "S01-E436", "S01-M436"],
+      "period": "2023-06",
+      "versions": ["7.20", "7.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-437",
+      "family": "CFI-20",
+      "prefixes": ["S01-F437", "S01-E437", "S01-M437"],
+      "period": "2023-07",
+      "versions": ["7.40", "7.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-438",
+      "family": "CFI-20",
+      "prefixes": ["S01-F438", "S01-E438", "S01-M438"],
+      "period": "2023-08",
+      "versions": ["7.60", "7.61"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-439",
+      "family": "CFI-20",
+      "prefixes": ["S01-F439", "S01-E439", "S01-M439"],
+      "period": "2023-09",
+      "versions": ["7.61", "8.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-43A",
+      "family": "CFI-20",
+      "prefixes": ["S01-F43A", "S01-E43A", "S01-M43A"],
+      "period": "2023-10",
+      "versions": ["7.61", "8.00", "8.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-43B",
+      "family": "CFI-20",
+      "prefixes": ["S01-F43B", "S01-E43B", "S01-M43B"],
+      "period": "2023-11",
+      "versions": ["8.20", "8.20.02"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-43C",
+      "family": "CFI-20",
+      "prefixes": ["S01-F43C", "S01-E43C", "S01-M43C"],
+      "period": "2023-12",
+      "versions": ["8.20.02", "8.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-441",
+      "family": "CFI-20",
+      "prefixes": ["S01-F441", "S01-E441", "S01-M441"],
+      "period": "2024-01",
+      "versions": ["8.40", "8.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-442",
+      "family": "CFI-20",
+      "prefixes": ["S01-F442", "S01-E442", "S01-M442"],
+      "period": "2024-02",
+      "versions": ["8.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-443",
+      "family": "CFI-20",
+      "prefixes": ["S01-F443", "S01-E443", "S01-M443"],
+      "period": "2024-03",
+      "versions": ["8.60", "9.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-444",
+      "family": "CFI-20",
+      "prefixes": ["S01-F444", "S01-E444", "S01-M444"],
+      "period": "2024-04",
+      "versions": ["9.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-445",
+      "family": "CFI-20",
+      "prefixes": ["S01-F445", "S01-E445", "S01-M445"],
+      "period": "2024-05",
+      "versions": ["9.00", "9.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-446",
+      "family": "CFI-20",
+      "prefixes": ["S01-F446", "S01-E446", "S01-M446"],
+      "period": "2024-06",
+      "versions": ["9.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-447",
+      "family": "CFI-20",
+      "prefixes": ["S01-F447", "S01-E447", "S01-M447"],
+      "period": "2024-07",
+      "versions": ["9.40", "9.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-448",
+      "family": "CFI-20",
+      "prefixes": ["S01-F448", "S01-E448", "S01-M448"],
+      "period": "2024-08",
+      "versions": ["9.40", "9.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-449",
+      "family": "CFI-20",
+      "prefixes": ["S01-F449", "S01-E449", "S01-M449"],
+      "period": "2024-09",
+      "versions": ["9.60", "10.00", "10.01"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-44A",
+      "family": "CFI-20",
+      "prefixes": ["S01-F44A", "S01-E44A", "S01-M44A"],
+      "period": "2024-10",
+      "versions": ["9.60", "10.01", "10.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-44B",
+      "family": "CFI-20",
+      "prefixes": ["S01-F44B", "S01-E44B", "S01-M44B"],
+      "period": "2024-11",
+      "versions": ["10.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-44C",
+      "family": "CFI-20",
+      "prefixes": ["S01-F44C", "S01-E44C", "S01-M44C"],
+      "period": "2024-12",
+      "versions": ["10.20", "10.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-451",
+      "family": "CFI-20",
+      "prefixes": ["S01-F451", "S01-E451", "S01-M451"],
+      "period": "2025-01",
+      "versions": ["10.20", "10.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-452",
+      "family": "CFI-20",
+      "prefixes": ["S01-F452", "S01-E452", "S01-M452"],
+      "period": "2025-02",
+      "versions": ["10.40", "10.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-453",
+      "family": "CFI-20",
+      "prefixes": ["S01-F453", "S01-E453", "S01-M453"],
+      "period": "2025-03",
+      "versions": ["10.40", "10.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-454",
+      "family": "CFI-20",
+      "prefixes": ["S01-F454", "S01-E454", "S01-M454"],
+      "period": "2025-04",
+      "versions": ["10.60", "11.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-455",
+      "family": "CFI-20",
+      "prefixes": ["S01-F455", "S01-E455", "S01-M455"],
+      "period": "2025-05",
+      "versions": ["11.00", "11.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-456",
+      "family": "CFI-20",
+      "prefixes": ["S01-F456", "S01-E456", "S01-M456"],
+      "period": "2025-06",
+      "versions": ["11.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-457",
+      "family": "CFI-20",
+      "prefixes": ["S01-F457", "S01-E457", "S01-M457"],
+      "period": "2025-07",
+      "versions": ["11.20", "11.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-458",
+      "family": "CFI-20",
+      "prefixes": ["S01-F458", "S01-E458", "S01-M458"],
+      "period": "2025-08",
+      "versions": ["11.40", "11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-459",
+      "family": "CFI-20",
+      "prefixes": ["S01-F459", "S01-E459", "S01-M459"],
+      "period": "2025-09",
+      "versions": ["11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-20-45A",
+      "family": "CFI-20",
+      "prefixes": ["S01-F45A", "S01-E45A", "S01-M45A"],
+      "period": "2025-10",
+      "versions": ["11.60", "12.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-556",
+      "family": "CFI-21",
+      "prefixes": ["S01-F556", "S01-E556", "S01-M556", "S01-V556"],
+      "period": "2025-06",
+      "versions": ["11.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-557",
+      "family": "CFI-21",
+      "prefixes": ["S01-F557", "S01-E557", "S01-M557", "S01-V557"],
+      "period": "2025-07",
+      "versions": ["11.20", "11.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-558",
+      "family": "CFI-21",
+      "prefixes": ["S01-F558", "S01-E558", "S01-M558", "S01-V558"],
+      "period": "2025-08",
+      "versions": ["11.40", "11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-559",
+      "family": "CFI-21",
+      "prefixes": ["S01-F559", "S01-E559", "S01-M559", "S01-V559"],
+      "period": "2025-09",
+      "versions": ["11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-55A",
+      "family": "CFI-21",
+      "prefixes": ["S01-F55A", "S01-E55A", "S01-M55A", "S01-V55A"],
+      "period": "2025-10",
+      "versions": ["11.60", "12.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-55B",
+      "family": "CFI-21",
+      "prefixes": ["S01-F55B", "S01-E55B", "S01-M55B", "S01-V55B"],
+      "period": "2025-11",
+      "versions": ["12.02", "12.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-55C",
+      "family": "CFI-21",
+      "prefixes": ["S01-F55C", "S01-E55C", "S01-M55C", "S01-V55C"],
+      "period": "2025-12",
+      "versions": ["12.20", "12.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-561",
+      "family": "CFI-21",
+      "prefixes": ["S01-F561", "S01-E561", "S01-M561", "S01-V561"],
+      "period": "2026-01",
+      "versions": ["12.40", "12.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-562",
+      "family": "CFI-21",
+      "prefixes": ["S01-F562", "S01-E562", "S01-M562", "S01-V562"],
+      "period": "2026-02",
+      "versions": ["12.60", "12.70"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-563",
+      "family": "CFI-21",
+      "prefixes": ["S01-F563", "S01-E563", "S01-M563", "S01-V563"],
+      "period": "2026-03",
+      "versions": ["12.70", "13.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-564",
+      "family": "CFI-21",
+      "prefixes": ["S01-F564", "S01-E564", "S01-M564", "S01-V564"],
+      "period": "2026-04",
+      "versions": ["13.00", "13.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-565",
+      "family": "CFI-21",
+      "prefixes": ["S01-F565", "S01-E565", "S01-M565", "S01-V565"],
+      "period": "2026-05",
+      "versions": ["13.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-566",
+      "family": "CFI-21",
+      "prefixes": ["S01-F566", "S01-E566", "S01-M566", "S01-V566"],
+      "period": "2026-06",
+      "versions": ["13.20", "13.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-567",
+      "family": "CFI-21",
+      "prefixes": ["S01-F567", "S01-E567", "S01-M567", "S01-V567"],
+      "period": "2026-07",
+      "versions": ["13.42", "13.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-568",
+      "family": "CFI-21",
+      "prefixes": ["S01-F568", "S01-E568", "S01-M568", "S01-V568"],
+      "period": "2026-08",
+      "versions": ["13.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-569",
+      "family": "CFI-21",
+      "prefixes": ["S01-F569", "S01-E569", "S01-M569", "S01-V569"],
+      "period": "2026-09",
+      "versions": ["13.60", "14.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-21-56A",
+      "family": "CFI-21",
+      "prefixes": ["S01-F56A", "S01-E56A", "S01-M56A", "S01-V56A"],
+      "period": "2026-10",
+      "versions": ["14.10", "14.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-145",
+      "family": "CFI-70",
+      "prefixes": ["S01-F145", "S01-E145", "S01-K145"],
+      "period": "2024-05",
+      "versions": ["9.05"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-146",
+      "family": "CFI-70",
+      "prefixes": ["S01-F146", "S01-E146", "S01-K146"],
+      "period": "2024-06",
+      "versions": ["9.05", "9.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-147",
+      "family": "CFI-70",
+      "prefixes": ["S01-F147", "S01-E147", "S01-K147"],
+      "period": "2024-07",
+      "versions": ["9.40", "9.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-148",
+      "family": "CFI-70",
+      "prefixes": ["S01-F148", "S01-E148", "S01-K148"],
+      "period": "2024-08",
+      "versions": ["9.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-149",
+      "family": "CFI-70",
+      "prefixes": ["S01-F149", "S01-E149", "S01-K149"],
+      "period": "2024-09",
+      "versions": ["9.60", "10.00", "10.01"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-14A",
+      "family": "CFI-70",
+      "prefixes": ["S01-F14A", "S01-E14A", "S01-K14A"],
+      "period": "2024-10",
+      "versions": ["9.60", "10.00", "10.01", "10.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-14B",
+      "family": "CFI-70",
+      "prefixes": ["S01-F14B", "S01-E14B", "S01-K14B"],
+      "period": "2024-11",
+      "versions": ["10.01", "10.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-14C",
+      "family": "CFI-70",
+      "prefixes": ["S01-F14C", "S01-E14C", "S01-K14C"],
+      "period": "2024-12",
+      "versions": ["10.20", "10.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-151",
+      "family": "CFI-70",
+      "prefixes": ["S01-F151", "S01-E151", "S01-K151"],
+      "period": "2025-01",
+      "versions": ["10.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-152",
+      "family": "CFI-70",
+      "prefixes": ["S01-F152", "S01-E152", "S01-K152"],
+      "period": "2025-02",
+      "versions": ["10.40", "10.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-153",
+      "family": "CFI-70",
+      "prefixes": ["S01-F153", "S01-E153", "S01-K153"],
+      "period": "2025-03",
+      "versions": ["10.40", "10.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-154",
+      "family": "CFI-70",
+      "prefixes": ["S01-F154", "S01-E154", "S01-K154"],
+      "period": "2025-04",
+      "versions": ["10.60", "11.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-155",
+      "family": "CFI-70",
+      "prefixes": ["S01-F155", "S01-E155", "S01-K155"],
+      "period": "2025-05",
+      "versions": ["11.00", "11.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-156",
+      "family": "CFI-70",
+      "prefixes": ["S01-F156", "S01-E156", "S01-K156"],
+      "period": "2025-06",
+      "versions": ["11.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-157",
+      "family": "CFI-70",
+      "prefixes": ["S01-F157", "S01-E157", "S01-K157"],
+      "period": "2025-07",
+      "versions": ["11.20", "11.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-158",
+      "family": "CFI-70",
+      "prefixes": ["S01-F158", "S01-E158", "S01-K158"],
+      "period": "2025-08",
+      "versions": ["11.40", "11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-159",
+      "family": "CFI-70",
+      "prefixes": ["S01-F159", "S01-E159", "S01-K159"],
+      "period": "2025-09",
+      "versions": ["11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-70-15A",
+      "family": "CFI-70",
+      "prefixes": ["S01-F15A", "S01-E15A", "S01-K15A"],
+      "period": "2025-10",
+      "versions": ["11.60", "12.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-256",
+      "family": "CFI-71",
+      "prefixes": ["S01-F256", "S01-E256", "S01-K256"],
+      "period": "2025-06",
+      "versions": ["11.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-257",
+      "family": "CFI-71",
+      "prefixes": ["S01-F257", "S01-E257", "S01-K257"],
+      "period": "2025-07",
+      "versions": ["11.20", "11.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-258",
+      "family": "CFI-71",
+      "prefixes": ["S01-F258", "S01-E258", "S01-K258"],
+      "period": "2025-08",
+      "versions": ["11.40", "11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-259",
+      "family": "CFI-71",
+      "prefixes": ["S01-F259", "S01-E259", "S01-K259"],
+      "period": "2025-09",
+      "versions": ["11.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-25A",
+      "family": "CFI-71",
+      "prefixes": ["S01-F25A", "S01-E25A", "S01-K25A"],
+      "period": "2025-10",
+      "versions": ["11.60", "12.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-25B",
+      "family": "CFI-71",
+      "prefixes": ["S01-F25B", "S01-E25B", "S01-K25B"],
+      "period": "2025-11",
+      "versions": ["12.00", "12.02"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-25C",
+      "family": "CFI-71",
+      "prefixes": ["S01-F25C", "S01-E25C", "S01-K25C"],
+      "period": "2025-12",
+      "versions": ["12.02", "12.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-261",
+      "family": "CFI-71",
+      "prefixes": ["S01-F261", "S01-E261", "S01-K261"],
+      "period": "2026-01",
+      "versions": ["12.40", "12.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-262",
+      "family": "CFI-71",
+      "prefixes": ["S01-F262", "S01-E262", "S01-K262"],
+      "period": "2026-02",
+      "versions": ["12.40", "12.60", "12.70"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-263",
+      "family": "CFI-71",
+      "prefixes": ["S01-F263", "S01-E263", "S01-K263"],
+      "period": "2026-03",
+      "versions": ["12.60", "12.70", "13.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-264",
+      "family": "CFI-71",
+      "prefixes": ["S01-F264", "S01-E264", "S01-K264"],
+      "period": "2026-04",
+      "versions": ["13.00", "13.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-265",
+      "family": "CFI-71",
+      "prefixes": ["S01-F265", "S01-E265", "S01-K265"],
+      "period": "2026-05",
+      "versions": ["13.20"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-266",
+      "family": "CFI-71",
+      "prefixes": ["S01-F266", "S01-E266", "S01-K266"],
+      "period": "2026-06",
+      "versions": ["13.20", "13.40"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-267",
+      "family": "CFI-71",
+      "prefixes": ["S01-F267", "S01-E267", "S01-K267"],
+      "period": "2026-07",
+      "versions": ["13.42", "13.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-268",
+      "family": "CFI-71",
+      "prefixes": ["S01-F268", "S01-E268", "S01-K268"],
+      "period": "2026-08",
+      "versions": ["13.60"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-269",
+      "family": "CFI-71",
+      "prefixes": ["S01-F269", "S01-E269", "S01-K269"],
+      "period": "2026-09",
+      "versions": ["13.60", "14.00"],
+      "sourceId": "psdevwiki-4813"
+    },
+    {
+      "id": "batch-71-26A",
+      "family": "CFI-71",
+      "prefixes": ["S01-F26A", "S01-E26A", "S01-K26A"],
+      "period": "2026-10",
+      "versions": ["14.10", "14.20"],
+      "sourceId": "psdevwiki-4813"
+    }
+  ]
+}

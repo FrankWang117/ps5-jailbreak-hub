@@ -1,5 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { datasetSchema, queryCompatibility, type Dataset } from './index';
+import {
+  captureSystemVersion,
+  systemVersionInputSchema,
+  assessGuideReadiness,
+  guideAnswersFromSearch,
+  guideSearch,
+  type GuideAnswers,
+  datasetSchema,
+  queryCompatibility,
+  queryCompatibilityByModelCode,
+  modelCodeInputSchema,
+  type Dataset,
+} from './index';
 function fixture(): Dataset {
   return datasetSchema.parse({
     models: [
@@ -196,4 +208,102 @@ it('invalid URL strings fail validation without throwing', () => {
   d.modelSources[0].url = 'not a URL';
   expect(() => datasetSchema.safeParse(d)).not.toThrow();
   expect(datasetSchema.safeParse(d).success).toBe(false);
+});
+
+it('queries complete model codes without treating other models or internal IDs as aliases', () => {
+  const data = fixture();
+  expect(
+    queryCompatibilityByModelCode(data, 'CFI-TEST', '03.00').records,
+  ).toHaveLength(1);
+  for (const code of ['CFI-TESTA', 'CFI-test', 'm', 'CFI-TEST01']) {
+    expect(
+      queryCompatibilityByModelCode(data, code, '03.00').records,
+    ).toHaveLength(0);
+  }
+  expect(
+    queryCompatibilityByModelCode(data, 'CFI-TEST', '3.00').records,
+  ).toHaveLength(0);
+  expect(
+    queryCompatibilityByModelCode(data, 'CFI-TEST', '03.01').records,
+  ).toHaveLength(0);
+});
+it('validates model input format without claiming model existence', () => {
+  for (const code of ['CFI-TEST', 'CFI-2200B01', 'CFI-TEST-A'])
+    expect(modelCodeInputSchema.safeParse(code).success).toBe(true);
+  for (const code of ['', 'CFI-2200*', 'cfi-test', '<script>', 'CFI-'])
+    expect(modelCodeInputSchema.safeParse(code).success).toBe(false);
+});
+
+const readyAnswers: GuideAnswers = {
+  modelCode: 'CFI-TEST',
+  systemVersion: '03.00',
+  homeScreen: 'yes',
+  computer: 'yes',
+  computerOs: 'macos',
+};
+it('keeps long version originals without deriving lookup versions', () => {
+  for (const original of ['12.40.00.09', '24.01-08.60.00', '03.000', '12.4']) {
+    expect(captureSystemVersion(original)).toEqual({
+      kind: 'unmapped',
+      original,
+      lookupVersion: null,
+    });
+  }
+  expect(captureSystemVersion('03.00').lookupVersion).toBe('03.00');
+  expect(captureSystemVersion('3.00').lookupVersion).toBe('3.00');
+  for (const invalid of ['', 'hello', '<script>', '12..40'])
+    expect(systemVersionInputSchema.safeParse(invalid).success).toBe(false);
+});
+it('gives a next step from explicit preparation answers and keeps execution unverified', () => {
+  const data = fixture();
+  const cases: Array<[Partial<GuideAnswers>, string]> = [
+    [{ modelCode: '' }, 'device-info'],
+    [{ systemVersion: '' }, 'device-info'],
+    [{ homeScreen: 'no' }, 'device-info'],
+    [{ homeScreen: 'unknown' }, 'device-info'],
+    [{ systemVersion: '03.00.00.09' }, 'version-review'],
+    [{ computer: 'no' }, 'computer-check'],
+    [{ computer: 'unknown' }, 'computer-check'],
+    [{ computerOs: 'unknown' }, 'os-check'],
+    [{}, 'evidence-review'],
+    [{ modelCode: 'CFI-OTHER' }, 'preparation-reading'],
+    [{ systemVersion: '3.00' }, 'preparation-reading'],
+  ];
+  for (const [changed, stage] of cases) {
+    const result = assessGuideReadiness(data, { ...readyAnswers, ...changed });
+    expect(result.stage).toBe(stage);
+    expect(result.executionReady).toBe(false);
+  }
+});
+it('never inherits evidence through full-version prefixes, example data or other models', () => {
+  const data = fixture();
+  expect(
+    assessGuideReadiness(data, { ...readyAnswers, systemVersion: '03.00.00' })
+      .evidence,
+  ).toBe('unmapped');
+  expect(
+    assessGuideReadiness(data, { ...readyAnswers, modelCode: 'CFI-TESTA' })
+      .evidence,
+  ).toBe('missing');
+  data.compatibility[0].isExample = true;
+  expect(() => assessGuideReadiness(data, readyAnswers)).toThrow();
+});
+it('roundtrips raw versions and preserves independent valid answers from malformed links', () => {
+  const answers = {
+    ...readyAnswers,
+    systemVersion: '24.01-08.60.00',
+    computerOs: 'windows' as const,
+  };
+  expect(guideAnswersFromSearch(guideSearch(answers))).toEqual(answers);
+  const recovered = guideAnswersFromSearch(
+    '?model=bad&version=12.40.00.09&computerOs=bogus&homeScreen=no',
+  );
+  expect(recovered.modelCode).toBe('');
+  expect(recovered.systemVersion).toBe('12.40.00.09');
+  expect(recovered.homeScreen).toBe('no');
+  expect(recovered.computerOs).toBe('unknown');
+  expect(
+    guideAnswersFromSearch(guideSearch({ ...readyAnswers, computer: 'no' }))
+      .computerOs,
+  ).toBe('unknown');
 });

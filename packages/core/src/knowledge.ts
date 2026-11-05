@@ -32,12 +32,47 @@ export const knowledgeBaseSchema = z
           title: text,
           summary: text,
           updatedAt: z.iso.date(),
+          deviceGuide: z
+            .object({
+              steps: z.tuple([
+                z.object({
+                  id: z.literal('model'),
+                  title: text,
+                  action: text,
+                  expected: text,
+                  help: text,
+                }),
+                z.object({
+                  id: z.literal('home'),
+                  title: text,
+                  action: text,
+                  expected: text,
+                  help: text,
+                }),
+                z.object({
+                  id: z.literal('version'),
+                  title: text,
+                  action: text,
+                  expected: text,
+                  help: text,
+                }),
+                z.object({
+                  id: z.literal('review'),
+                  title: text,
+                  action: text,
+                  expected: text,
+                  help: text,
+                }),
+              ]),
+            })
+            .optional(),
           sections: z
             .array(
               z.object({
                 id: slug,
                 title: text,
                 paragraphs: z.array(text).min(1),
+                collapsed: z.boolean().optional(),
                 snippet: z
                   .object({
                     label: text,

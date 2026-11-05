@@ -10,8 +10,12 @@ import {
 } from '@ps5/core';
 import App from './App';
 import { CompatibilityPage } from './CompatibilityPage';
+import { DeviceProvider } from './components/device-context';
 import { CompatibilityResults } from './components/compatibility-results';
-afterEach(cleanup);
+afterEach(() => {
+  cleanup();
+  localStorage.clear();
+});
 it('shows sourced model facts, separate unknown compatibility, and links to original product pages', async () => {
   const user = userEvent.setup();
   render(
@@ -19,8 +23,8 @@ it('shows sourced model facts, separate unknown compatibility, and links to orig
       <App />
     </MemoryRouter>,
   );
+  await user.click(screen.getByText('型号示例：CFI-2200B01'));
   expect(screen.getByRole('heading', { name: 'CFI-2200B01' })).toBeTruthy();
-  expect(screen.getByText(/M1 · 型号资料已有来源/)).toBeTruthy();
   await user.click(screen.getByText('型号资料与字段来源 · 已有一手来源'));
   expect(screen.getByText('825GB SSD（标称）')).toBeTruthy();
   expect(screen.getByText('2025-11-21')).toBeTruthy();
@@ -33,13 +37,14 @@ it('shows sourced model facts, separate unknown compatibility, and links to orig
   ).toContain('playstation.com');
   expect(screen.queryByText('虚构演示主机')).toBeNull();
 });
-it('formal query never falls back to demo records and rejects unsupported full versions', async () => {
+it('formal query never falls back to demo records and preserves unmapped full versions', async () => {
   const user = userEvent.setup();
   render(
     <MemoryRouter initialEntries={['/compatibility']}>
       <App />
     </MemoryRouter>,
   );
+  await user.type(screen.getByLabelText('主机型号'), 'CFI-2200B01');
   const input = screen.getByLabelText('系统固件版本');
   const submit = screen.getByRole('button', { name: /查询兼容性/ });
   await user.type(input, '03.00');
@@ -51,9 +56,10 @@ it('formal query never falls back to demo records and rejects unsupported full v
   expect(screen.queryByText('兼容性未知')).toBeNull();
   await user.type(input, '24.01-08.60.00');
   await user.click(submit);
-  expect(screen.getByRole('alert').textContent).toContain(
-    '完整系统版本暂不转换',
-  );
+  expect(screen.queryByRole('alert')).toBeNull();
+  expect(screen.getByRole('heading', { name: '版本原文已保留' })).toBeTruthy();
+  expect(screen.getByText('24.01-08.60.00')).toBeTruthy();
+  expect(screen.queryByText('0 条方案记录')).toBeNull();
 });
 it('explicit demo mode shows sample evidence and returning to formal mode clears query state', async () => {
   const user = userEvent.setup();
@@ -166,7 +172,9 @@ it('clears a non-unknown result when editing query conditions and honors model U
   const data = multiMethodFixture();
   render(
     <MemoryRouter initialEntries={['/compatibility?model=cfi-2200b01']}>
-      <CompatibilityPage data={data} />
+      <DeviceProvider>
+        <CompatibilityPage data={data} />
+      </DeviceProvider>
     </MemoryRouter>,
   );
   await user.type(screen.getByLabelText('系统固件版本'), '03.00');
@@ -189,4 +197,31 @@ it('offers a local Host guide and a recoverable 404', () => {
     </MemoryRouter>,
   );
   expect(screen.getByText('页面不存在')).toBeTruthy();
+});
+
+it('accepts an unlisted complete model and clears results on model changes', async () => {
+  const user = userEvent.setup();
+  render(
+    <MemoryRouter initialEntries={['/compatibility']}>
+      <App />
+    </MemoryRouter>,
+  );
+  const model = screen.getByLabelText('主机型号');
+  expect((model as HTMLInputElement).value).toBe('');
+  await user.type(model, 'CFI-TEST01');
+  await user.type(screen.getByLabelText('系统固件版本'), '09.00');
+  await user.keyboard('{Enter}');
+  expect(screen.getByRole('heading', { name: 'CFI-TEST01' })).toBeTruthy();
+  expect(screen.getByText('兼容性未知')).toBeTruthy();
+  expect(screen.queryByText('型号资料与字段来源 · 已有一手来源')).toBeNull();
+  await user.clear(model);
+  expect(screen.queryByText('兼容性未知')).toBeNull();
+  await user.type(model, 'CFI-2200B01');
+  await user.keyboard('{Enter}');
+  expect(screen.getByText('兼容性未知')).toBeTruthy();
+  await user.clear(model);
+  await user.type(model, 'CFI-2200*');
+  await user.keyboard('{Enter}');
+  expect(screen.getByRole('alert').textContent).toContain('完整 CFI- 型号编号');
+  expect(screen.queryByText('兼容性未知')).toBeNull();
 });

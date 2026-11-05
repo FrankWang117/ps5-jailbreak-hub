@@ -1,0 +1,95 @@
+{
+  "updatedAt": "2026-11-05",
+  "steps": [
+    {
+      "title": "确认电脑系统",
+      "action": "选择你准备用的电脑。这里只整理准备信息；尚无匹配证据时，不会推荐执行安装。",
+      "expected": "已确认有可用电脑，并知道它运行的系统。",
+      "help": "没有电脑或还不知道系统时先保留未知，不要求购买设备。不确定系统名称时，先查看电脑随附说明或厂商的系统帮助，不根据外观猜测。"
+    },
+    {
+      "title": "找到电脑的网络地址",
+      "action": "在电脑上查看当前连接的 IPv4 地址，记在自己的纸张或本地笔记中。不必把地址填到网站。",
+      "expected": "找到的是电脑当前家庭网络连接的 IPv4 地址，不是主机、路由器、浏览器预览地址或公网查询结果。",
+      "help": "有多个网卡、VPN 或多个地址时，先核对当前使用的家庭网络。只看到了 IPv6 或无法辨认字段时，先停下查对应系统说明；不要猜地址或关闭安全设置。"
+    },
+    {
+      "title": "记录原设置与连接计划",
+      "action": "确认电脑和 PS5 计划通过哪台家庭路由器连接。把现有主机连接方式、网络名以及自动 / 手动 IP、DNS 设置记在自己的笔记中；尚未配置的写“未配置”。本步只观察和记录。",
+      "expected": "已保存现状，并能说清楚电脑、路由器与 PS5 的连接关系；尚未配置也如实记下。",
+      "help": "无法确认原设置时先查当前设备的说明，不恢复出厂设置。主机若被初始化、登录或更新提示阻碍，记录画面后停下；正在安装更新时保持供电。不要为了完成本页先改 DNS 或运行网络诊断。"
+    },
+    {
+      "title": "核对准备记录",
+      "action": "检查下面由你确认的准备项目。记录完整后，可以继续阅读资料；设备适用性和实际网络互通仍需后续独立核验。",
+      "expected": "准备信息由你确认保存。没有把勾选、同一个 Wi-Fi 名称或相似地址当成网络已经互通。",
+      "help": "换了电脑、系统、网络或主机设置后，返回对应步骤重新核对。网页看不到路由器、VPN 或设备的实际状态，不能自动验证这些项目。"
+    }
+  ],
+  "platforms": {
+    "macos": {
+      "label": "macOS",
+      "menuVerified": true,
+      "instructions": [
+        "苹果菜单 → 系统设置 → 网络，选择当前正在使用的 Wi-Fi 或以太网连接。",
+        "点“详细信息”，查看 IP 地址；需要时进入 TCP/IP。只读取当前信息，不修改 IPv4 或续租设置。",
+        "这条路径依据当前 Apple 手册；旧版“系统偏好设置”或其他布局请查看对应系统帮助。"
+      ]
+    },
+    "windows": {
+      "label": "Windows",
+      "menuVerified": true,
+      "instructions": [
+        "开始 → 设置 → 网络和 Internet。",
+        "Wi-Fi：选择 Wi-Fi，再打开当前已连接的网络；有线：选择“以太网”。",
+        "在连接属性中找到“IPv4 地址”。菜单路径依据 Microsoft 的 Windows 10/11 说明；此处不点 IP / DNS 的“编辑”。"
+      ]
+    },
+    "linux": {
+      "label": "Linux",
+      "menuVerified": false,
+      "instructions": [
+        "本篇尚未核验你所用发行版的网络菜单。请按该发行版的官方帮助查看当前连接的 IPv4 地址。",
+        "下方关系示意可作为通用准备资料；它不是 Linux 安装步骤，也不提供可直接照做的安装命令。"
+      ]
+    },
+    "other": {
+      "label": "其他系统",
+      "menuVerified": false,
+      "instructions": [
+        "本篇尚无这个系统的具体菜单指引。可按设备官方说明查看当前连接信息，不套用 macOS 或 Windows 的菜单。",
+        "如果无法确认地址，可停留并保存当前进度；无需猜测或调整网络。"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "title": "Mac 上的 Wi-Fi 设置",
+      "publisher": "Apple 支持",
+      "url": "https://support.apple.com/zh-cn/guide/mac-help/mh11935/27/mac/27",
+      "checkedAt": "2026-11-05",
+      "scope": "采用网络服务详细信息中查看 IP 与路由器地址的功能范围，不采用改网络设置建议。"
+    },
+    {
+      "title": "在 Mac 上更改 TCP/IP 设置",
+      "publisher": "Apple 支持",
+      "url": "https://support.apple.com/zh-cn/guide/mac-help/mh14129/27/mac/27",
+      "checkedAt": "2026-11-05",
+      "scope": "采用系统设置、网络服务、详细信息、TCP/IP 的路径；本站仅编排为查看，不指导修改。"
+    },
+    {
+      "title": "Windows 中的基本网络设置和任务",
+      "publisher": "Microsoft Support",
+      "url": "https://support.microsoft.com/en-us/windows/experience/connectivity-networking/essential-network-settings-and-tasks-in-windows",
+      "checkedAt": "2026-11-05",
+      "scope": "采用 Windows 10/11 查看当前 Wi-Fi 或以太网 IPv4 地址的路径；中文为本站摘要译文，不采用 IP / DNS 编辑。"
+    },
+    {
+      "title": "PlayStation 网络连接与详细设置",
+      "publisher": "PlayStation 支持（日本）",
+      "url": "https://www.playstation.com/ja-jp/support/connectivity/internet-connect-playstation/",
+      "checkedAt": "2026-11-05",
+      "scope": "采用 LAN / WAN 区分、网络连接类型及 IP / DNS 等设置字段范围；不安排联网、改 DNS 或推断破解能力。"
+    }
+  ]
+}

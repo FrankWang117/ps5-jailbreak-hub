@@ -2,6 +2,16 @@ import { expect, it } from 'vitest';
 import { publishedDatasetSchema, queryCompatibility } from '@ps5/core';
 import { dataset } from './index';
 import { demoDataset } from './demo';
+import { preparationContent } from './index';
+import { preparationContentSchema } from '@ps5/core';
+it('validates preparation content separately from compatibility evidence', () => {
+  expect(preparationContentSchema.safeParse(preparationContent).success).toBe(
+    true,
+  );
+  expect(preparationContent.steps).toHaveLength(4);
+  expect(preparationContent.platforms.linux.menuVerified).toBe(false);
+  expect(dataset.compatibility).toEqual([]);
+});
 it('publishes only sourced CFI-2200B01 model fields with no invented firmware or compatibility', () => {
   expect(publishedDatasetSchema.safeParse(dataset).success).toBe(true);
   expect(dataset.models).toHaveLength(1);
